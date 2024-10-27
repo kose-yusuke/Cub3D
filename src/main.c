@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/27 17:46:09 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/27 21:02:40 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,12 @@
 int ft_error_message_handler(char *message)
 {
 	printf("%s\n%s\n","Error",message);
-	return (0);
+	return (1);
 }
 
 void init_mgr(t_mgr *mgr, char* map_filepath)
 {
-	// mgr->collect_flag = 0;
-	// mgr->move_count = 0;
-	// mgr->char_counters.player_counter = 0;
-	// mgr->char_counters.collect_counter = 0;
-	// mgr->char_counters.exit_counter = 0;
-	// mgr->maps.row = count_rows(mgr, map_filepath);
+	
 }
 
 int ft_init_render(t_mgr *mgr)
@@ -50,10 +45,6 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (ft_error_message_handler("Usage: ./cub3D <map_name>.cub"));
 	init_mgr(&mgr, argv[1]);
-	// init_textures(&mgr);
-	// print_controls();
-	// render_images(&mgr);
-	// listen_for_input(&mgr);
     ft_init_render(&mgr);
 	return (0);
 }
