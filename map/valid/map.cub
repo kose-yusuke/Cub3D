@@ -1,7 +1,7 @@
 NO ./texture/wood.xpm
-SO ./texture/grey_stone.xpm
-WE ./texture/red_brick.xpm
-EA ./texture/purple_stone.xpm
+SO ./texture/greystone.xpm
+WE ./texture/redbrick.xpm
+EA ./texture/purplestone.xpm
 F 220,100,0
 C 225,30,0
 

@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:17:18 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 15:46:01 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/28 17:23:37 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@ void ft_set_xpmfile(t_mgr *mgr)
 {
 	int img_width;
 	int img_height;
-
-    mgr->textures->north_texture = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->north_texture_path, &img_width, &img_height);
-    mgr->textures->south_texture = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->south_texture_path, &img_width, &img_height);
-    mgr->textures->west_texture = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->west_texture_path, &img_width, &img_height);
-    mgr->textures->east_texture = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->east_texture_path, &img_width, &img_height);
+    
+    mgr->xpms.north_xpm = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->north_texture_path, &img_width, &img_height);
+    mgr->xpms.south_xpm = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->south_texture_path, &img_width, &img_height);
+    mgr->xpms.west_xpm = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->west_texture_path, &img_width, &img_height);
+    mgr->xpms.east_xpm = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->east_texture_path, &img_width, &img_height);
+    mlx_put_image_to_window(mgr->mlx, mgr->win, mgr->xpms.north_xpm, 0, 0);
 }
 
 //count rows of map
@@ -53,7 +54,7 @@ void parse_rgb(char *line, t_rgb *rgb)
     char *start;
     char *end;
 
-    start = line + 2;
+    start = line;
 
     end = ft_strchr(start, ',');
     if (end == NULL)
@@ -67,26 +68,33 @@ void parse_rgb(char *line, t_rgb *rgb)
     *end = '\0';
     rgb->green = ft_atoi(start);
     start = end + 1;
+    end = ft_strchr(start, '\n');
+    if (end == NULL)
+        exit(ft_error_message_handler("Invalid RGB format"));
+    *end = '\0';
     rgb->blue = ft_atoi(start);
 }
 
 //最低限
 void parse_texture_line(char *line, t_mgr *mgr, int count_row)
 {
+    int len;
+
+    len = ft_strlen_until_newline(line);
     if (ft_strncmp(line, "NO ", 3) == 0)
-        mgr->textures->north_texture_path = ft_strdup(line + 3);
+        mgr->textures->north_texture_path = ft_strndup(line + 3,len - 3);   
     else if (ft_strncmp(line, "SO ", 3) == 0)
-        mgr->textures->south_texture_path = ft_strdup(line + 3);
+        mgr->textures->south_texture_path = ft_strndup(line + 3,len - 3);
     else if (ft_strncmp(line, "WE ", 3) == 0)
-        mgr->textures->west_texture_path = ft_strdup(line + 3);
+        mgr->textures->west_texture_path = ft_strndup(line + 3,len - 3);
     else if (ft_strncmp(line, "EA ", 3) == 0)
-        mgr->textures->east_texture_path = ft_strdup(line + 3);
+        mgr->textures->east_texture_path = ft_strndup(line + 3,len - 3);
     else if (ft_strncmp(line, "F ", 2) == 0)
     {
-        parse_rgb(line, &mgr->textures->f_rgb);
+        parse_rgb(line + 2, &mgr->textures->f_rgb);
     }
     else if (ft_strncmp(line, "C ", 2) == 0)
-        parse_rgb(line, &mgr->textures->c_rgb);
+        parse_rgb(line + 2, &mgr->textures->c_rgb);
     return;
 }
 

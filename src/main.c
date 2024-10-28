@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 15:47:24 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/28 17:25:27 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int ft_update_render_map(t_mgr *mgr)
     return (0);
 }
 
-
 int ft_init_render(t_mgr *mgr)
 {
 	mgr->mlx = mlx_init();
@@ -58,7 +57,7 @@ int ft_init_render(t_mgr *mgr)
 	mgr->win = mlx_new_window(mgr->mlx, 500, 500, WINDOW_NAME);
     if (!mgr->win)
         exit(1);
-	ft_set_xpmfile(mgr);
+    ft_set_xpmfile(mgr);
     // ↓dda
 	// if(!ft_render_map(mgr))
 	// 	return (0);

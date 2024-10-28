@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 15:46:12 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/28 17:15:27 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,17 @@ typedef struct s_textures
 	char		*south_texture_path;
 	char		*west_texture_path;
 	char		*east_texture_path;
-    void		*north_texture;
-	void		*south_texture;
-	void		*west_texture;
-	void		*east_texture;
 	t_rgb		f_rgb;
 	t_rgb		c_rgb;
 }				t_textures;
+
+typedef struct s_xpms
+{
+    void		*north_xpm;
+	void		*south_xpm;
+	void		*west_xpm;
+	void		*east_xpm;
+}				t_xpms;
 
 typedef struct s_map
 {
@@ -111,6 +115,7 @@ typedef struct s_mgr
 	// t_pos 	player_pos;
 	// t_pos 	exit_pos;
 	t_textures	*textures;
+    t_xpms	    xpms;
 	// t_char_counters char_counters;
 	// int collect_flag;
 	// int move_count;
@@ -125,5 +130,7 @@ int				is_valid_char(char c);
 char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
 void ft_set_xpmfile(t_mgr *mgr);
+char	*ft_strndup(char *src, long len);
+size_t	ft_strlen_until_newline(const char *str);
 
 #endif
