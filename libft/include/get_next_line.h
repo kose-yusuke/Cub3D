@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykoseki <ykoseki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 23:42:17 by ykoseki           #+#    #+#             */
-/*   Updated: 2023/11/09 23:03:10 by ykoseki          ###   ########.fr       */
+/*   Updated: 2024/10/28 13:12:59 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 char	*ft_strnjoin(char *s1, char *s2, int len1, int len2);
 size_t	ft_strchr_i(char *s, int c);
 size_t	ft_strlen_s(char *str);
-char	*ft_strdup(const char *src);
+// char	*ft_strdup(const char *src);
 // char	*ft_strcpy(char *dest, char *src);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 char	*get_next_line(int fd);

@@ -1,7 +1,7 @@
 NAME     = cub3D
-CC       = cc
-CFLAGS   = $(INCLUDES)
-# CFLAGS   = $(INCLUDES) -g -fsanitize=address
+CC       = cc 
+# CFLAGS   = $(INCLUDES)
+CFLAGS   = $(INCLUDES) -g -fsanitize=address
 # CFLAGS   = -Wall -Wextra -Werror $(INCLUDES)
 INCLUDES = -I $(LIBFT_DIR)/include -I $(MLX_DIR) -I include
 LIB = -L $(MLX_DIR) -l $(MLX) -L $(LIBFT_DIR) -l $(LIBFT) \
@@ -13,13 +13,13 @@ LIBFT_DIR = ./libft
 MLX_DIR = ./minilibx-linux
 MLX = mlx_Darwin
 
-SRCS     = $(SRC_DIR)/main.c $(SRC_DIR)/event.c
+SRCS     = $(SRC_DIR)/main.c $(SRC_DIR)/event.c $(SRC_DIR)/error/error.c $(SRC_DIR)/parse/readfile.c
 OBJS     = $(SRCS:%.c=%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C $(MLX_DIR)
+	make -C $(LIBFT_DIR)
 	make -C $(MLX_DIR)
 	gcc $(CFLAGS) $(OBJS) $(INCLUDE) $(LIB) -framework OpenGL -framework AppKit -o $(NAME)
 
@@ -32,7 +32,9 @@ clean:
 	$(RM) $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) 
+	make -C $(LIBFT_DIR) fclean
+	make -C $(MLX_DIR) clean
 
 re: fclean all
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykoseki <ykoseki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 23:18:14 by ykoseki           #+#    #+#             */
-/*   Updated: 2023/11/07 20:10:48 by ykoseki          ###   ########.fr       */
+/*   Updated: 2024/10/28 13:21:24 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ size_t	ft_strchr_i(char *s, int c)
 	return (num);
 }
 
-char	*ft_strdup(const char *src)
-{
-	char	*p;
-	long	len;
+// char	*ft_strdup(const char *src)
+// {
+// 	char	*p;
+// 	long	len;
 
-	len = ft_strlen_s((char *)src);
-	p = (char *)malloc(sizeof(char) * (len + 1));
-	if (!p)
-		return (NULL);
-	ft_strlcpy(p, src, len + 1);
-	return (p);
-}
+// 	len = ft_strlen_s((char *)src);
+// 	p = (char *)malloc(sizeof(char) * (len + 1));
+// 	if (!p)
+// 		return (NULL);
+// 	ft_strlcpy(p, src, len + 1);
+// 	return (p);
+// }

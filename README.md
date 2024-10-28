@@ -47,6 +47,8 @@
 ・スプライト表示
 
 ## 資料集
-- [Cub3D - C言語で3DFPSゲーム作ってみた](https://zenn.dev/rt3mis10/articles/3482cc49e288ea)
-- [ddaアルゴリズム(Ray Casting)](https://lodev.org/cgtutor/raycasting.html)
 - [42docs-cub3D](https://harm-smits.github.io/42docs/projects/cub3d)
+- [ddaアルゴリズム(Ray Casting)](https://lodev.org/cgtutor/raycasting.html)
+- [[Lv3] cub3d](https://note.com/syamashi/n/nf5500ce3add0)
+- [Cub3D - C言語で3DFPSゲーム作ってみた](https://zenn.dev/rt3mis10/articles/3482cc49e288ea)
+- [C言語で3Dゲームを作った](https://jun-networks.hatenablog.com/entry/2021/03/04/130629)
