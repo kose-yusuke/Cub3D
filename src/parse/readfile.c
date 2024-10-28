@@ -6,11 +6,22 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:17:18 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 15:18:52 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/28 15:46:01 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void ft_set_xpmfile(t_mgr *mgr)
+{
+	int img_width;
+	int img_height;
+
+    mgr->textures->north_texture = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->north_texture_path, &img_width, &img_height);
+    mgr->textures->south_texture = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->south_texture_path, &img_width, &img_height);
+    mgr->textures->west_texture = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->west_texture_path, &img_width, &img_height);
+    mgr->textures->east_texture = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->east_texture_path, &img_width, &img_height);
+}
 
 //count rows of map
 int count_rows(t_mgr *mgr, char *map_filepath)
@@ -63,13 +74,13 @@ void parse_rgb(char *line, t_rgb *rgb)
 void parse_texture_line(char *line, t_mgr *mgr, int count_row)
 {
     if (ft_strncmp(line, "NO ", 3) == 0)
-        mgr->textures->north_texture = ft_strdup(line + 3);
+        mgr->textures->north_texture_path = ft_strdup(line + 3);
     else if (ft_strncmp(line, "SO ", 3) == 0)
-        mgr->textures->south_texture = ft_strdup(line + 3);
+        mgr->textures->south_texture_path = ft_strdup(line + 3);
     else if (ft_strncmp(line, "WE ", 3) == 0)
-        mgr->textures->west_texture = ft_strdup(line + 3);
+        mgr->textures->west_texture_path = ft_strdup(line + 3);
     else if (ft_strncmp(line, "EA ", 3) == 0)
-        mgr->textures->east_texture = ft_strdup(line + 3);
+        mgr->textures->east_texture_path = ft_strdup(line + 3);
     else if (ft_strncmp(line, "F ", 2) == 0)
     {
         parse_rgb(line, &mgr->textures->f_rgb);

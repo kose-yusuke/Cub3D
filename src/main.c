@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 15:19:27 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/28 15:47:24 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void init_mgr(t_mgr *mgr, char* map_filepath)
         exit(ft_error_message_handler("Failed to allocate memory for textures"));
     mgr->map.row = count_rows(mgr, map_filepath);
     mgr->map.grid = read_cub_file(mgr, map_filepath);
-    printf("%d\n", mgr->textures->c_rgb.green);
     //mapのvalidity
 
     //textureのvalidity
@@ -59,7 +58,8 @@ int ft_init_render(t_mgr *mgr)
 	mgr->win = mlx_new_window(mgr->mlx, 500, 500, WINDOW_NAME);
     if (!mgr->win)
         exit(1);
-	// ft_read_management(mgr);
+	ft_set_xpmfile(mgr);
+    // ↓dda
 	// if(!ft_render_map(mgr))
 	// 	return (0);
 	mlx_hook(mgr->win, ON_KEYDOWN, 1L << 0, ft_event_handler, mgr);
