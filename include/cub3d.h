@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 17:15:27 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/30 21:15:22 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,18 @@
 # define SQUARE_SIZE 32
 # define WINDOW_NAME "cub3D"
 
+// # define SCREEN_WIDTH 1280
+// # define SCREEN_HEIGHT 720
+# define SCREEN_WIDTH 1200
+# define SCREEN_HEIGHT 600
+#define mapWidth 24
+#define mapHeight 24
+# define MOVESPEED 0.125
+# define ROTSPEED 0.15
+
 // valid char
-# define WALL '1'
-# define SPACE '0'
+# define WALL 1
+# define SPACE 0
 # define PLAYER 'P'
 # define NORTH 'N'
 # define SOUTH 'S'
@@ -57,7 +66,9 @@ typedef enum e_keycode
 	UP = 119,
 	DOWN = 115,
 	LEFT = 97,
-	RIGHT = 100
+	RIGHT = 100,
+	LEFT_VIEW = 65361,
+	RIGHT_VIEW = 65363
 }				t_keycode;
 
 typedef struct s_vec2d
@@ -72,6 +83,27 @@ typedef struct s_player
 	t_vec2d		dir;
 	t_vec2d		camera_plane;
 }				t_player;
+
+// DDAで使用するレイの構造体
+typedef struct s_ray
+{
+	double		dir_x;
+	double		dir_y;
+	int			map_x;
+	int			map_y;
+	double 		camera_x;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_x;
+	int			step_y;
+	int			side; //a NS or a EW wall hit
+	double time; //time of current frame
+    double oldTime; //time of previous frame
+	double perpWallDist; // "perpendicular wall distance"（垂直壁距離）
+	int hit; //a wall hit
+}				t_ray;
 
 typedef struct s_rgb
 {
@@ -92,7 +124,7 @@ typedef struct s_textures
 
 typedef struct s_xpms
 {
-    void		*north_xpm;
+	void		*north_xpm;
 	void		*south_xpm;
 	void		*west_xpm;
 	void		*east_xpm;
@@ -115,7 +147,7 @@ typedef struct s_mgr
 	// t_pos 	player_pos;
 	// t_pos 	exit_pos;
 	t_textures	*textures;
-    t_xpms	    xpms;
+	t_xpms		xpms;
 	// t_char_counters char_counters;
 	// int collect_flag;
 	// int move_count;
@@ -123,14 +155,27 @@ typedef struct s_mgr
 
 // FUNCTION
 
+// event
 int				ft_event_handler(int keycode, t_mgr *mgr);
 int				ft_close(t_mgr *mgr);
+// error handling
 int				ft_error_message_handler(char *message);
 int				is_valid_char(char c);
+// read cubfile
 char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
-void ft_set_xpmfile(t_mgr *mgr);
-char	*ft_strndup(char *src, long len);
-size_t	ft_strlen_until_newline(const char *str);
+void			ft_set_xpmfile(t_mgr *mgr);
+//utils
+char			*ft_strndup(char *src, long len);
+size_t			ft_strlen_until_newline(const char *str);
+double			absolute_value(double value);
+//render
+int render_loop(t_mgr *mgr) ;
+//dda
+void init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
+void set_ray_steps_and_initial_side_distances(t_ray *ray, t_mgr *mgr);
+void perform_dda(t_ray *ray, t_mgr *mgr);
+//debug
+void print_grid(t_mgr *mgr);
 
 #endif

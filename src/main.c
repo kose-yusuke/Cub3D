@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 17:25:27 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/30 21:13:12 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,28 @@
 // 	system("leaks -q cub3D");
 // }
 
-// void print_grid(t_mgr *mgr)
-// {
-//     int i = 0;
+void print_grid(t_mgr *mgr)
+{
+    int i = 0;
     
-//     while (mgr->map.grid[i] != NULL && i < mgr->map.row)
-//     {
-//         printf("%s", mgr->map.grid[i]);
-//         i++;
-//     }
-// }
+    while (mgr->map.grid[i] != NULL && i < mgr->map.row)
+    {
+        printf("%s", mgr->map.grid[i]);
+        i++;
+    }
+    printf("%s", "\n");
+}
+
+//仮
+void init_player(t_mgr *mgr) 
+{
+    mgr->player.pos.x = 12.1;
+    mgr->player.pos.y = 12.7;
+    mgr->player.dir.x = 1;
+    mgr->player.dir.y = 0;
+    mgr->player.camera_plane.x = 0.0;
+    mgr->player.camera_plane.y = 0.66;
+}
 
 void init_mgr(t_mgr *mgr, char* map_filepath)
 {
@@ -41,12 +53,7 @@ void init_mgr(t_mgr *mgr, char* map_filepath)
     //textureのvalidity
 
     // init_player(&mgr->player);
-}
-
-int ft_update_render_map(t_mgr *mgr)
-{
-    
-    return (0);
+    init_player(mgr);
 }
 
 int ft_init_render(t_mgr *mgr)
@@ -54,16 +61,13 @@ int ft_init_render(t_mgr *mgr)
 	mgr->mlx = mlx_init();
     if (!mgr->mlx)
         exit(1);
-	mgr->win = mlx_new_window(mgr->mlx, 500, 500, WINDOW_NAME);
+	mgr->win = mlx_new_window(mgr->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
     if (!mgr->win)
         exit(1);
     ft_set_xpmfile(mgr);
-    // ↓dda
-	// if(!ft_render_map(mgr))
-	// 	return (0);
 	mlx_hook(mgr->win, ON_KEYDOWN, 1L << 0, ft_event_handler, mgr);
 	mlx_hook(mgr->win, ON_DESTROY, 1L << 17, ft_close, mgr);
-	mlx_loop_hook(mgr->mlx, ft_update_render_map, mgr);
+	mlx_loop_hook(mgr->mlx, render_loop, mgr);
 	mlx_loop(mgr->mlx);
 	return (0);
 }

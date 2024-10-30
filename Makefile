@@ -13,7 +13,8 @@ LIBFT_DIR = ./libft
 MLX_DIR = ./minilibx-linux
 MLX = mlx_Darwin
 
-SRCS     = $(SRC_DIR)/main.c $(SRC_DIR)/event.c $(SRC_DIR)/error/error.c $(SRC_DIR)/parse/readfile.c $(SRC_DIR)/utils.c
+SRCS     = $(SRC_DIR)/main.c $(SRC_DIR)/event.c $(SRC_DIR)/error/error.c $(SRC_DIR)/parse/readfile.c $(SRC_DIR)/utils.c \
+		$(SRC_DIR)/dda/dda.c $(SRC_DIR)/render/rendering.c
 OBJS     = $(SRCS:%.c=%.o)
 
 all: $(NAME)

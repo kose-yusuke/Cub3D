@@ -6,11 +6,18 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:06:07 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 17:16:55 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/29 10:43:56 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+double	absolute_value(double value)
+{
+	if (value < 0)
+		return (-value);
+	return (value);
+}
 
 size_t	ft_strlen_until_newline(const char *str)
 {

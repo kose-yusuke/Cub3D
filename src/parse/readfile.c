@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:17:18 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 17:23:37 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/29 17:01:54 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void ft_set_xpmfile(t_mgr *mgr)
     mgr->xpms.south_xpm = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->south_texture_path, &img_width, &img_height);
     mgr->xpms.west_xpm = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->west_texture_path, &img_width, &img_height);
     mgr->xpms.east_xpm = mlx_xpm_file_to_image(mgr->mlx, mgr->textures->east_texture_path, &img_width, &img_height);
-    mlx_put_image_to_window(mgr->mlx, mgr->win, mgr->xpms.north_xpm, 0, 0);
+    // mlx_put_image_to_window(mgr->mlx, mgr->win, mgr->xpms.north_xpm, 0, 0);
 }
 
 //count rows of map
