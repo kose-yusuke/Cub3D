@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:02 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/30 20:51:48 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/30 21:47:47 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int ft_move_player(int keycode, t_mgr *mgr)
 {
     if (keycode == UP)
     {
-        if(mgr->map.grid[(int)(mgr->player.pos.x + mgr->player.dir.x * MOVESPEED)][(int)(mgr->player.pos.y)] == '0') 
+        if(mgr->map.grid[(int)(mgr->player.pos.x + mgr->player.dir.x * MOVESPEED)][(int)(mgr->player.pos.y)] == '0')
             mgr->player.pos.x += mgr->player.dir.x * MOVESPEED;
-        if(mgr->map.grid[(int)(mgr->player.pos.x)][(int)(mgr->player.pos.y + mgr->player.dir.y * MOVESPEED)] == '0') 
+        if(mgr->map.grid[(int)(mgr->player.pos.x)][(int)(mgr->player.pos.y + mgr->player.dir.y * MOVESPEED)] == '0')
             mgr->player.pos.y += mgr->player.dir.y * MOVESPEED;
     }
     else if (keycode == DOWN)

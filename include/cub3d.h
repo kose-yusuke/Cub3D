@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/30 21:15:22 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/30 22:19:06 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 // # define SCREEN_HEIGHT 720
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 600
-#define mapWidth 24
-#define mapHeight 24
+# define mapWidth 24
+# define mapHeight 24
 # define MOVESPEED 0.125
 # define ROTSPEED 0.15
 
@@ -91,18 +91,18 @@ typedef struct s_ray
 	double		dir_y;
 	int			map_x;
 	int			map_y;
-	double 		camera_x;
+	double		camera_x;
 	double		side_dist_x;
 	double		side_dist_y;
 	double		delta_dist_x;
 	double		delta_dist_y;
 	int			step_x;
 	int			step_y;
-	int			side; //a NS or a EW wall hit
-	double time; //time of current frame
-    double oldTime; //time of previous frame
+	int side;            // a NS or a EW wall hit
+	double time;         // time of current frame
+	double oldTime;      // time of previous frame
 	double perpWallDist; // "perpendicular wall distance"（垂直壁距離）
-	int hit; //a wall hit
+	int hit;             // a wall hit
 }				t_ray;
 
 typedef struct s_rgb
@@ -138,19 +138,24 @@ typedef struct s_map
 	int			column;
 }				t_map;
 
+typedef struct s_img
+{
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+}				t_img;
+
 typedef struct s_mgr
 {
 	void		*mlx;
 	void		*win;
 	t_map		map;
 	t_player	player;
-	// t_pos 	player_pos;
-	// t_pos 	exit_pos;
 	t_textures	*textures;
 	t_xpms		xpms;
-	// t_char_counters char_counters;
-	// int collect_flag;
-	// int move_count;
+	t_img		img;
 }				t_mgr;
 
 // FUNCTION
@@ -165,17 +170,18 @@ int				is_valid_char(char c);
 char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
 void			ft_set_xpmfile(t_mgr *mgr);
-//utils
+// utils
 char			*ft_strndup(char *src, long len);
 size_t			ft_strlen_until_newline(const char *str);
 double			absolute_value(double value);
-//render
-int render_loop(t_mgr *mgr) ;
-//dda
-void init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
-void set_ray_steps_and_initial_side_distances(t_ray *ray, t_mgr *mgr);
-void perform_dda(t_ray *ray, t_mgr *mgr);
-//debug
-void print_grid(t_mgr *mgr);
+// render
+int				render_loop(t_mgr *mgr);
+// dda
+void			init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
+void			set_ray_steps_and_initial_side_distances(t_ray *ray,
+					t_mgr *mgr);
+void			perform_dda(t_ray *ray, t_mgr *mgr);
+// debug
+void			print_grid(t_mgr *mgr);
 
 #endif

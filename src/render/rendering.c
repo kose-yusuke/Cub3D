@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:46:52 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/30 21:33:18 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/31 13:44:15 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,28 @@ double get_perp_wall_dist(t_ray *ray)
         return ray->side_dist_y - ray->delta_dist_y;
 }
 
+// イメージデータの初期化
+void init_image(t_mgr *mgr)
+{
+    mgr->img.img = mlx_new_image(mgr->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+    mgr->img.addr = mlx_get_data_addr(mgr->img.img, &mgr->img.bits_per_pixel,
+                                    &mgr->img.line_length, &mgr->img.endian);
+}
+
+// ピクセルをバッファに書き込む
+void put_pixel_to_image(t_mgr *mgr, int x, int y, int color)
+{
+    char	*dst;
+    
+    // バッファ範囲内にあるか確認
+    if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
+        return;
+
+    // ピクセル位置のポインタを計算して代入
+    dst = mgr->img.addr + (y * mgr->img.line_length + x * (mgr->img.bits_per_pixel / 8));
+    *(unsigned int *)dst = color;
+}
+
 void draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray ray) {
     int draw_start;
     int draw_end;
@@ -31,9 +53,6 @@ void draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray ray) {
         draw_start = 0;
     if (draw_end >= SCREEN_HEIGHT)
         draw_end = SCREEN_HEIGHT - 1;
-    printf("aaa");
-    printf("%c\n",mgr->map.grid[ray.map_x][ray.map_y]);
-    printf("aaa");
     switch(mgr->map.grid[ray.map_x][ray.map_y])
     {
         case '1':  color = 0xFF0000; break; // 赤 (RGB_Red)
@@ -42,12 +61,12 @@ void draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray ray) {
         case '4':  color = 0xFFFFFF; break; // 白 (RGB_White)
         default: color = 0xFFFF00; break; // 黄 (RGB_Yellow)
     }
-
-    // if (side == 1) {color = color / 2;}
-
+    if (side == 1) {color = color / 2;}
+    
     int y = draw_start;
     while (y < draw_end) {
-        mlx_pixel_put(mgr->mlx, mgr->win, x, y, color);
+        put_pixel_to_image(mgr, x, y, color);
+        // mlx_pixel_put(mgr->mlx, mgr->win, x, y, color);
         y++;
     }
 }
@@ -56,6 +75,7 @@ int render_loop(t_mgr *mgr)
 {
     int x = 0;
 
+    init_image(mgr);
     while (x < SCREEN_WIDTH)
     {
         t_ray ray;
@@ -74,5 +94,8 @@ int render_loop(t_mgr *mgr)
         draw_wall(mgr, x, line_height, ray.side, ray);
         x++;
     }
+    mlx_put_image_to_window(mgr->mlx, mgr->win, mgr->img.img, 0, 0);
+	mlx_destroy_image(mgr->mlx, mgr->img.img);
     return (0);
 }
+
