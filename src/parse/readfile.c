@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:17:18 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/29 17:01:54 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/31 19:33:44 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int count_rows(t_mgr *mgr, char *map_filepath)
 	}
 	close(fd);
 	return(count_row);
+}
+
+int count_columns(t_mgr *mgr)
+{
+    return (ft_strlen(mgr->map.grid[0]));
 }
 
 void parse_rgb(char *line, t_rgb *rgb)

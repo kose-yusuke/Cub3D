@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/31 18:05:11 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/31 19:13:27 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ int				is_valid_char(char c);
 // read cubfile
 char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
+int count_columns(t_mgr *mgr);
 void			ft_set_xpmfile(t_mgr *mgr);
 // utils
 char			*ft_strndup(char *src, long len);

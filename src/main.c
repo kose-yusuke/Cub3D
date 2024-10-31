@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/31 18:26:53 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/31 19:37:36 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,77 @@ void print_grid(t_mgr *mgr)
     printf("%s", "\n");
 }
 
-//仮
-void init_player(t_mgr *mgr) 
+void init_player(t_mgr *mgr, int x, int y, char compass) 
 {
-    mgr->player.pos.x = 22;
-    mgr->player.pos.y = 22;
-    mgr->player.dir.x = 0;
-    mgr->player.dir.y = 1;
-    mgr->player.camera_plane.x = 0.0;
-    mgr->player.camera_plane.y = 0.66;
+    mgr->player.pos.x = (double)x;
+    mgr->player.pos.y = (double)y;
+    
+    if (compass == 'N')
+    {
+        mgr->player.dir.x = 0;
+		mgr->player.dir.y = -1;
+		mgr->player.camera_plane.x = 0.66;
+		mgr->player.camera_plane.y = 0;
+    }
+    else if (compass == 'S')
+    {
+        mgr->player.dir.x = 0;
+		mgr->player.dir.y = 1;
+		mgr->player.camera_plane.x = -0.66;
+		mgr->player.camera_plane.y = 0;
+    }
+    else if (compass == 'W')
+    {
+        mgr->player.dir.x = -1;
+		mgr->player.dir.y = 0;
+		mgr->player.camera_plane.x = 0;
+		mgr->player.camera_plane.y = -0.66;
+    }
+    else if (compass == 'E')
+    {
+        mgr->player.dir.x = 1;
+		mgr->player.dir.y = 0;
+		mgr->player.camera_plane.x = 0;
+		mgr->player.camera_plane.y = 0.66;
+    }
 }
+
+int check_map_validity(t_mgr *mgr) 
+{
+    int spawn_count = 0;
+    int i = 0;
+    int j = 0;
+    char cell = '\0';
+    printf("%d",mgr->map.column);
+    while (i < mgr->map.row) 
+    {
+        j = 0;
+        while (j < mgr->map.column)
+        {
+            cell = mgr->map.grid[i][j];
+            //1(壁), 0(空間), NSWE以外の文字がないか
+            if (!is_valid_char(cell)) 
+            {
+                return (ft_error_message_handler("Error: Invalid character in map\n"));   
+            }
+            //playerの初期化
+            if (cell == 'N' || cell == 'S' || cell == 'W' || cell == 'E') 
+            {
+                if (spawn_count > 0) 
+                    return (ft_error_message_handler("Error: Multiple player starting positions\n"));
+                spawn_count = 1;
+                init_player(mgr, i, j, cell);
+            }
+            j++;
+        }
+        i++;
+    }
+    // プレイヤーが1つも見つからない場合のエラー
+    if (spawn_count == 0) 
+        return (ft_error_message_handler("Error: No player starting position found\n"));
+    return (0);
+}
+
 
 void init_mgr(t_mgr *mgr, char* map_filepath)
 {
@@ -48,12 +109,12 @@ void init_mgr(t_mgr *mgr, char* map_filepath)
         exit(ft_error_message_handler("Failed to allocate memory for textures"));
     mgr->map.row = count_rows(mgr, map_filepath);
     mgr->map.grid = read_cub_file(mgr, map_filepath);
-    //mapのvalidity
-
+    mgr->map.column = count_columns(mgr) - 1;
+    //mapのvalidity(init_player)
+    if (check_map_validity(mgr) == 1)
+        exit(1);
     //textureのvalidity
 
-    // init_player(&mgr->player);
-    init_player(mgr);
 }
 
 int ft_init_render(t_mgr *mgr)

@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:16:13 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/28 12:01:51 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/31 19:17:21 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int ft_error_message_handler(char *message)
 
 int is_valid_char(char c)
 {
-	return (c == WALL || c == SPACE || c == PLAYER || c == NORTH || c == SOUTH || c == WEST || c == EAST);
+	return (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'W' || c == 'E');
 }
