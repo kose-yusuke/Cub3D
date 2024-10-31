@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/31 14:47:22 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/31 18:26:53 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void init_player(t_mgr *mgr)
 {
     mgr->player.pos.x = 22;
     mgr->player.pos.y = 22;
-    mgr->player.dir.x = 0.2;
-    mgr->player.dir.y = 0.4;
+    mgr->player.dir.x = 0;
+    mgr->player.dir.y = 1;
     mgr->player.camera_plane.x = 0.0;
     mgr->player.camera_plane.y = 0.66;
 }

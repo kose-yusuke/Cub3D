@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:46:52 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/31 14:25:41 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/31 18:05:21 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int render_loop(t_mgr *mgr)
     int x = 0;
 
     init_image(mgr);
+    castFloorAndCeiling(mgr);
     while (x < SCREEN_WIDTH)
     {
         t_ray ray;
