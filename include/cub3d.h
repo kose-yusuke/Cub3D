@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/30 22:19:06 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/31 14:47:31 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@
 # define mapWidth 24
 # define mapHeight 24
 # define MOVESPEED 0.125
-# define ROTSPEED 0.15
+# define ROTSPEED 0.1
+#define texWidth 64
+#define texHeight 64
 
 // valid char
 # define WALL 1

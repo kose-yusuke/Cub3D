@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:46:52 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/31 13:44:15 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/10/31 14:25:41 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,17 @@ void draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray ray) {
         draw_start = 0;
     if (draw_end >= SCREEN_HEIGHT)
         draw_end = SCREEN_HEIGHT - 1;
-    switch(mgr->map.grid[ray.map_x][ray.map_y])
+    if (ray.map_y > -1 && ray.map_y > -1)
     {
-        case '1':  color = 0xFF0000; break; // 赤 (RGB_Red)
-        case '2':  color = 0x00FF00; break; // 緑 (RGB_Green)
-        case '3':  color = 0x0000FF; break; // 青 (RGB_Blue)
-        case '4':  color = 0xFFFFFF; break; // 白 (RGB_White)
-        default: color = 0xFFFF00; break; // 黄 (RGB_Yellow)
+        if (mgr->map.grid[ray.map_x][ray.map_y] == '1')
+            color = 0xFF0000;
+        else
+            color = 0x000000;
     }
-    if (side == 1) {color = color / 2;}
     
     int y = draw_start;
     while (y < draw_end) {
         put_pixel_to_image(mgr, x, y, color);
-        // mlx_pixel_put(mgr->mlx, mgr->win, x, y, color);
         y++;
     }
 }
@@ -90,7 +87,7 @@ int render_loop(t_mgr *mgr)
         if (perp_wall_dist == 0)
             perp_wall_dist = 0.000000001;
         line_height = 0;
-        line_height = (int)((SCREEN_HEIGHT / 50) / perp_wall_dist);
+        line_height = (int)((SCREEN_HEIGHT) / perp_wall_dist);
         draw_wall(mgr, x, line_height, ray.side, ray);
         x++;
     }
