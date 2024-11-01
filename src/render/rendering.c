@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:46:52 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/31 18:05:21 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/01 11:20:12 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray ray) {
         draw_start = 0;
     if (draw_end >= SCREEN_HEIGHT)
         draw_end = SCREEN_HEIGHT - 1;
-    if (ray.map_y > -1 && ray.map_y > -1)
+    if (ray.map_x > -1 && ray.map_y > -1)
     {
-        if (mgr->map.grid[ray.map_x][ray.map_y] == '1')
+        if (mgr->map.grid[ray.map_y][ray.map_x] == '1')
             color = 0xFF0000;
         else
-            color = 0x000000;
+            color = 0xFFFFFF;
     }
     
     int y = draw_start;
@@ -72,7 +72,6 @@ int render_loop(t_mgr *mgr)
 {
     int x = 0;
 
-    init_image(mgr);
     castFloorAndCeiling(mgr);
     while (x < SCREEN_WIDTH)
     {
@@ -93,7 +92,7 @@ int render_loop(t_mgr *mgr)
         x++;
     }
     mlx_put_image_to_window(mgr->mlx, mgr->win, mgr->img.img, 0, 0);
-	mlx_destroy_image(mgr->mlx, mgr->img.img);
+	// mlx_destroy_image(mgr->mlx, mgr->img.img);
     return (0);
 }
 

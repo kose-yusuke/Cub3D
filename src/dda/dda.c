@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 23:30:49 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/30 18:24:37 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/01 11:51:59 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void init_ray_direction(t_ray *ray, t_mgr *mgr, int x)
     ray->map_y = (int)mgr->player.pos.y;
 
     if (ray->dir_y == 0)
-		ray->delta_dist_x = INFINITY;
+		ray->delta_dist_x = INT_MAX;
 	else
 		ray->delta_dist_x = absolute_value(1 / ray->dir_x);
 	if (ray->dir_y == 0)
-		ray->delta_dist_y = INFINITY;
+		ray->delta_dist_y = INT_MAX;
 	else
 		ray->delta_dist_y = absolute_value(1 / ray->dir_y);
 }
@@ -69,8 +69,7 @@ void perform_dda(t_ray *ray, t_mgr *mgr)
             ray->map_y += ray->step_y;
             ray->side = 1;
         }
-        if (ray->map_y > -1 && ray->map_x > -1)
-            if (mgr->map.grid[ray->map_y][ray->map_x] > 0)
-                ray->hit = 1;
+        if (mgr->map.grid[ray->map_y][ray->map_x] == '1')
+            ray->hit = 1;
     }
 }

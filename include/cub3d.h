@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/31 19:13:27 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/01 11:42:46 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_ray
 	double		delta_dist_y;
 	int			step_x;
 	int			step_y;
+	char ray_mass;
 	int side;            // a NS or a EW wall hit
 	double time;         // time of current frame
 	double oldTime;      // time of previous frame
@@ -179,6 +180,7 @@ size_t			ft_strlen_until_newline(const char *str);
 double			absolute_value(double value);
 // render
 int				render_loop(t_mgr *mgr);
+void init_image(t_mgr *mgr);
 void put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
 void castFloorAndCeiling(t_mgr *mgr);
 // dda

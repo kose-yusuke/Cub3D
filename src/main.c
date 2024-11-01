@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/31 19:37:36 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/01 11:10:46 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int check_map_validity(t_mgr *mgr)
     int i = 0;
     int j = 0;
     char cell = '\0';
-    printf("%d",mgr->map.column);
     while (i < mgr->map.row) 
     {
         j = 0;
@@ -125,6 +124,7 @@ int ft_init_render(t_mgr *mgr)
 	mgr->win = mlx_new_window(mgr->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_NAME);
     if (!mgr->win)
         exit(1);
+    init_image(mgr);
     ft_set_xpmfile(mgr);
 	mlx_hook(mgr->win, ON_KEYDOWN, 1L << 0, ft_event_handler, mgr);
 	mlx_hook(mgr->win, ON_DESTROY, 1L << 17, ft_close, mgr);
