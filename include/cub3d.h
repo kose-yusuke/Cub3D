@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/01 11:42:46 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/02 23:31:39 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 # define mapHeight 24
 # define MOVESPEED 0.125
 # define ROTSPEED 0.1
-#define texWidth 64
-#define texHeight 64
+# define texWidth 64
+# define texHeight 64
 
 // valid char
 # define WALL 1
@@ -86,7 +86,6 @@ typedef struct s_player
 	t_vec2d		camera_plane;
 }				t_player;
 
-// DDAで使用するレイの構造体
 typedef struct s_ray
 {
 	double		dir_x;
@@ -100,12 +99,12 @@ typedef struct s_ray
 	double		delta_dist_y;
 	int			step_x;
 	int			step_y;
-	char ray_mass;
-	int side;            // a NS or a EW wall hit
-	double time;         // time of current frame
-	double oldTime;      // time of previous frame
-	double perpWallDist; // "perpendicular wall distance"（垂直壁距離）
-	int hit;             // a wall hit
+	char		ray_mass;
+	int			side;
+	double		time;
+	double		oldTime;
+	double		perpWallDist;
+	int			hit;
 }				t_ray;
 
 typedef struct s_rgb
@@ -136,7 +135,6 @@ typedef struct s_xpms
 typedef struct s_map
 {
 	char		**grid;
-	// char **dfs_map;
 	int			row;
 	int			column;
 }				t_map;
@@ -172,7 +170,7 @@ int				is_valid_char(char c);
 // read cubfile
 char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
-int count_columns(t_mgr *mgr);
+int				count_columns(t_mgr *mgr);
 void			ft_set_xpmfile(t_mgr *mgr);
 // utils
 char			*ft_strndup(char *src, long len);
@@ -180,9 +178,9 @@ size_t			ft_strlen_until_newline(const char *str);
 double			absolute_value(double value);
 // render
 int				render_loop(t_mgr *mgr);
-void init_image(t_mgr *mgr);
-void put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
-void castFloorAndCeiling(t_mgr *mgr);
+void			init_image(t_mgr *mgr);
+void			put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
+void			castFloorAndCeiling(t_mgr *mgr);
 // dda
 void			init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
 void			set_ray_steps_and_initial_side_distances(t_ray *ray,

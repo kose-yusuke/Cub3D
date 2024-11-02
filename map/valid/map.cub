@@ -2,8 +2,8 @@ NO ./texture/wood.xpm
 SO ./texture/greystone.xpm
 WE ./texture/redbrick.xpm
 EA ./texture/purplestone.xpm
-F 220,100,0
-C 225,30,0
+F 180,113,66
+C 36,139,255
 
 111111111111111111111111
 100000000100000000000001
