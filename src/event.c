@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:02 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/01 11:23:11 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/02 21:29:07 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ int ft_move_player(int keycode, t_mgr *mgr)
     else if (keycode == LEFT)
     {
         if (mgr->map.grid[(int)(mgr->player.pos.x - mgr->player.dir.y * MOVESPEED)][(int)(mgr->player.pos.y)] == '0')
-            mgr->player.pos.x -= mgr->player.dir.y * MOVESPEED;
+            mgr->player.pos.x += mgr->player.dir.y * MOVESPEED;
         if (mgr->map.grid[(int)(mgr->player.pos.x)][(int)(mgr->player.pos.y + mgr->player.dir.x * MOVESPEED)] == '0')
-            mgr->player.pos.y += mgr->player.dir.x * MOVESPEED;
+            mgr->player.pos.y -= mgr->player.dir.x * MOVESPEED;
     }
     else if (keycode == RIGHT) 
     {
         if (mgr->map.grid[(int)(mgr->player.pos.x + mgr->player.dir.y * MOVESPEED)][(int)(mgr->player.pos.y)] == '0')
-            mgr->player.pos.x += mgr->player.dir.y * MOVESPEED;
+            mgr->player.pos.x -= mgr->player.dir.y * MOVESPEED;
         if (mgr->map.grid[(int)(mgr->player.pos.x)][(int)(mgr->player.pos.y - mgr->player.dir.x * MOVESPEED)] == '0')
-            mgr->player.pos.y -= mgr->player.dir.x * MOVESPEED;
+            mgr->player.pos.y += mgr->player.dir.x * MOVESPEED;
     }
     
     if (keycode == LEFT_VIEW)
