@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/02 23:31:39 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/07 22:59:31 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,13 @@
 # define SOUTH 'S'
 # define WEST 'W'
 # define EAST 'E'
-
+# define X_AXIS 0
+# define Y_AXIS 1
+# define NORTH_WALL 0
+# define SOUTH_WALL 1
+# define WEST_WALL 2
+# define EAST_WALL 3
+# define DIRECTION 4
 // STRUCTURE
 typedef enum e_event
 {
@@ -122,14 +128,27 @@ typedef struct s_textures
 	char		*east_texture_path;
 	t_rgb		f_rgb;
 	t_rgb		c_rgb;
+	int 		color_ceiling;
+	int 		color_floor;
 }				t_textures;
+
+typedef struct s_img
+{
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			height;
+	int			width;
+}				t_img;
 
 typedef struct s_xpms
 {
-	void		*north_xpm;
-	void		*south_xpm;
-	void		*west_xpm;
-	void		*east_xpm;
+	t_img		*north_xpm;
+	t_img		*south_xpm;
+	t_img		*west_xpm;
+	t_img		*east_xpm;
 }				t_xpms;
 
 typedef struct s_map
@@ -139,15 +158,6 @@ typedef struct s_map
 	int			column;
 }				t_map;
 
-typedef struct s_img
-{
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-}				t_img;
-
 typedef struct s_mgr
 {
 	void		*mlx;
@@ -155,7 +165,7 @@ typedef struct s_mgr
 	t_map		map;
 	t_player	player;
 	t_textures	*textures;
-	t_xpms		xpms;
+	t_img		wall_img[DIRECTION];
 	t_img		img;
 }				t_mgr;
 
@@ -186,6 +196,9 @@ void			init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
 void			set_ray_steps_and_initial_side_distances(t_ray *ray,
 					t_mgr *mgr);
 void			perform_dda(t_ray *ray, t_mgr *mgr);
+// texture
+int	decide_draw_texture(t_ray *ray, t_mgr *mgr, int side);
+
 // debug
 void			print_grid(t_mgr *mgr);
 

@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:46:52 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/02 23:32:01 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/08 00:07:04 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,16 @@ void	put_pixel_to_image(t_mgr *mgr, int x, int y, int color)
 
 void	draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray ray)
 {
-	int	draw_start;
-	int	draw_end;
-	int	color;
-	int	y;
+	int		draw_start;
+	int		draw_end;
+	int		color;
+	int		y;
+	int		tex_x;
+	int		tex_y;
+	int		texture;
+	double	wallX;
+	double	step;
+	double	tex_pos;
 
 	draw_start = -line_height / 2 + SCREEN_HEIGHT / 2;
 	draw_end = line_height / 2 + SCREEN_HEIGHT / 2;
@@ -51,16 +57,27 @@ void	draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray ray)
 		draw_start = 0;
 	if (draw_end >= SCREEN_HEIGHT)
 		draw_end = SCREEN_HEIGHT - 1;
-	if (ray.map_x > -1 && ray.map_y > -1)
-	{
-		if (mgr->map.grid[ray.map_y][ray.map_x] == '1')
-			color = 0xFF0000;
-		else
-			color = 0xFFFFFF;
-	}
+	texture = decide_draw_texture(&ray, mgr, side);
+	if (ray.side == X_AXIS)
+		wallX = mgr->player.pos.y + ray.perpWallDist * ray.dir_y;
+	else
+		wallX = mgr->player.pos.x + ray.perpWallDist * ray.dir_x;
+	wallX -= floor(wallX);
+	tex_x = (int)(wallX * texWidth);
+	if (texture == EAST_WALL && ray.dir_x > 0)
+		tex_x = texWidth - tex_x - 1;
+	if (texture == SOUTH_WALL && ray.dir_y < 0)
+		tex_x = texWidth - tex_x - 1;
+	step = 1.0 * texHeight / line_height;
+	tex_pos = (draw_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
 	y = draw_start;
 	while (y < draw_end)
 	{
+		tex_y = (int)tex_pos & (texHeight - 1);
+		tex_pos += step;
+		color = *(unsigned int *)(mgr->wall_img[texture].addr + (tex_y
+					* mgr->wall_img[texture].line_length + tex_x
+					* (mgr->wall_img[texture].bits_per_pixel / 8)));
 		put_pixel_to_image(mgr, x, y, color);
 		y++;
 	}
@@ -68,10 +85,10 @@ void	draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray ray)
 
 int	render_loop(t_mgr *mgr)
 {
-	int	x;
-		t_ray ray;
-		double perp_wall_dist;
-		int line_height;
+	int		x;
+	t_ray	ray;
+	double	perp_wall_dist;
+	int		line_height;
 
 	x = 0;
 	castFloorAndCeiling(mgr);
@@ -83,7 +100,7 @@ int	render_loop(t_mgr *mgr)
 		perform_dda(&ray, mgr);
 		perp_wall_dist = get_perp_wall_dist(&ray);
 		if (perp_wall_dist == 0)
-			perp_wall_dist = 0.000000001;
+			perp_wall_dist = 0.0000000000000001;
 		line_height = 0;
 		line_height = (int)((SCREEN_HEIGHT) / perp_wall_dist);
 		draw_wall(mgr, x, line_height, ray.side, ray);

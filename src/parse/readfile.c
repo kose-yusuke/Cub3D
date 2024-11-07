@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:17:18 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/02 23:32:21 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/08 00:06:52 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,35 @@
 
 void	ft_set_xpmfile(t_mgr *mgr)
 {
-	int	img_width;
-	int	img_height;
-
-	mgr->xpms.north_xpm = mlx_xpm_file_to_image(mgr->mlx,
-			mgr->textures->north_texture_path, &img_width, &img_height);
-	mgr->xpms.south_xpm = mlx_xpm_file_to_image(mgr->mlx,
-			mgr->textures->south_texture_path, &img_width, &img_height);
-	mgr->xpms.west_xpm = mlx_xpm_file_to_image(mgr->mlx,
-			mgr->textures->west_texture_path, &img_width, &img_height);
-	mgr->xpms.east_xpm = mlx_xpm_file_to_image(mgr->mlx,
-			mgr->textures->east_texture_path, &img_width, &img_height);
-	// mlx_put_image_to_window(mgr->mlx, mgr->win, mgr->xpms.north_xpm, 0, 0);
+	mgr->wall_img[NORTH_WALL].img = mlx_xpm_file_to_image(mgr->mlx,
+			mgr->textures->north_texture_path, &mgr->wall_img[NORTH_WALL].width,
+			&mgr->wall_img[NORTH_WALL].height);
+	mgr->wall_img[NORTH_WALL].addr = mlx_get_data_addr(mgr->wall_img[NORTH_WALL].img,
+			&mgr->wall_img[NORTH_WALL].bits_per_pixel,
+			&mgr->wall_img[NORTH_WALL].line_length,
+			&mgr->wall_img[NORTH_WALL].endian);
+	mgr->wall_img[SOUTH_WALL].img = mlx_xpm_file_to_image(mgr->mlx,
+			mgr->textures->south_texture_path, &mgr->wall_img[SOUTH_WALL].width,
+			&mgr->wall_img[SOUTH_WALL].height);
+	mgr->wall_img[SOUTH_WALL].addr = mlx_get_data_addr(mgr->wall_img[SOUTH_WALL].img,
+			&mgr->wall_img[SOUTH_WALL].bits_per_pixel,
+			&mgr->wall_img[SOUTH_WALL].line_length,
+			&mgr->wall_img[SOUTH_WALL].endian);
+	mgr->wall_img[WEST_WALL].img = mlx_xpm_file_to_image(mgr->mlx,
+			mgr->textures->west_texture_path, &mgr->wall_img[WEST_WALL].width,
+			&mgr->wall_img[WEST_WALL].height);
+	mgr->wall_img[WEST_WALL].addr = mlx_get_data_addr(mgr->wall_img[WEST_WALL].img,
+			&mgr->wall_img[WEST_WALL].bits_per_pixel,
+			&mgr->wall_img[WEST_WALL].line_length,
+			&mgr->wall_img[WEST_WALL].endian);
+	mgr->wall_img[EAST_WALL].img = mlx_xpm_file_to_image(mgr->mlx,
+			mgr->textures->east_texture_path, &mgr->wall_img[EAST_WALL].width,
+			&mgr->wall_img[EAST_WALL].height);
+	mgr->wall_img[EAST_WALL].addr = mlx_get_data_addr(mgr->wall_img[EAST_WALL].img,
+			&mgr->wall_img[EAST_WALL].bits_per_pixel,
+			&mgr->wall_img[EAST_WALL].line_length,
+			&mgr->wall_img[EAST_WALL].endian);
+	// mlx_put_image_to_window(mgr->mlx, mgr->win, mgr->wall_img[EAST_WALL].img,0, 0);
 }
 
 int	count_rows(t_mgr *mgr, char *map_filepath)

@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 23:30:49 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/02 23:32:11 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/08 00:06:07 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,28 @@ void	perform_dda(t_ray *ray, t_mgr *mgr)
 		{
 			ray->side_dist_x += ray->delta_dist_x;
 			ray->map_x += ray->step_x;
-			ray->side = 0;
+			ray->side = X_AXIS;
 		}
 		else
 		{
 			ray->side_dist_y += ray->delta_dist_y;
 			ray->map_y += ray->step_y;
-			ray->side = 1;
+			ray->side = Y_AXIS;
 		}
 		if (mgr->map.grid[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}
+}
+
+int	decide_draw_texture(t_ray *ray, t_mgr *mgr, int side)
+{
+	if (side == Y_AXIS)
+	{
+		if (ray->map_y < mgr->player.pos.y)
+			return (NORTH_WALL);
+		return (SOUTH_WALL);
+	}
+	else if (ray->map_x < mgr->player.pos.x)
+		return (WEST_WALL);
+	return (EAST_WALL);
 }

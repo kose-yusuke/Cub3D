@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:02 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/02 23:32:35 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/07 21:15:28 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	ft_close(t_mgr *mgr)
 
 int	ft_move_player(int keycode, t_mgr *mgr)
 {
-	double	oldDirX;
-	double	oldPlaneX;
 	double	oldDirX;
 	double	oldPlaneX;
 
