@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 12:39:04 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/08 20:07:36 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ typedef struct s_textures
 	char		*east_texture_path;
 	t_rgb		f_rgb;
 	t_rgb		c_rgb;
-	int 		color_ceiling;
-	int 		color_floor;
+	int			color_ceiling;
+	int			color_floor;
 }				t_textures;
 
 typedef struct s_img
@@ -174,6 +174,7 @@ typedef struct s_mgr
 // event
 int				ft_event_handler(int keycode, t_mgr *mgr);
 int				ft_close(t_mgr *mgr);
+void			init_player(t_mgr *mgr, int x, int y, char compass);
 // error handling
 int				ft_error_message_handler(char *message);
 int				is_valid_char(char c);
@@ -182,6 +183,9 @@ char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
 int				count_columns(t_mgr *mgr);
 void			ft_set_xpmfile(t_mgr *mgr);
+void			parse_texture_line(char *line, t_mgr *mgr, int count_row);
+// map_check
+int				check_map_validity(t_mgr *mgr);
 // utils
 char			*ft_strndup(char *src, long len);
 size_t			ft_strlen_until_newline(const char *str);
@@ -190,7 +194,7 @@ double			absolute_value(double value);
 int				render_loop(t_mgr *mgr);
 void			init_image(t_mgr *mgr);
 void			put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
-void			castFloorAndCeiling(t_mgr *mgr);
+void			cast_floor_ceiling(t_mgr *mgr);
 // dda
 void			init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
 void			set_ray_steps_and_initial_side_distances(t_ray *ray,

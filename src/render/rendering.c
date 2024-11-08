@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:46:52 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 12:45:51 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/08 14:37:06 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray *ray)
 	int		tex_x;
 	int		tex_y;
 	int		texture;
-	double	wallX;
+	double	wall_x;
 	double	step;
 	double	tex_pos;
 
@@ -58,18 +58,18 @@ void	draw_wall(t_mgr *mgr, int x, int line_height, int side, t_ray *ray)
 	if (draw_end >= SCREEN_HEIGHT)
 		draw_end = SCREEN_HEIGHT - 1;
 	if (ray->side == X_AXIS)
-		wallX = mgr->player.pos.y + ray->perpWallDist * ray->dir_y;
+		wall_x = mgr->player.pos.y + ray->perpWallDist * ray->dir_y;
 	else
-		wallX = mgr->player.pos.x + ray->perpWallDist * ray->dir_x;
-	wallX -= floor(wallX);
-	tex_x = (int)(wallX * texWidth);
+		wall_x = mgr->player.pos.x + ray->perpWallDist * ray->dir_x;
+	wall_x -= floor(wall_x);
+	tex_x = (int)(wall_x * texWidth);
+    texture = decide_draw_texture(ray, mgr, side);
 	if (texture == EAST_WALL && ray->dir_x > 0)
 		tex_x = texWidth - tex_x - 1;
 	if (texture == SOUTH_WALL && ray->dir_y < 0)
 		tex_x = texWidth - tex_x - 1;
 	step = 1.0 * texHeight / line_height;
 	tex_pos = (draw_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
-	texture = decide_draw_texture(ray, mgr, side);
     y = draw_start;
 	while (y < draw_end)
 	{
@@ -90,11 +90,10 @@ int	render_loop(t_mgr *mgr)
 	int		line_height;
 
 	x = 0;
-	castFloorAndCeiling(mgr);
+	cast_floor_ceiling(mgr);
 	while (x < SCREEN_WIDTH)
 	{
 		init_ray_direction(&ray, mgr, x);
-		// print_grid(mgr);
 		set_ray_steps_and_initial_side_distances(&ray, mgr);
 		perform_dda(&ray, mgr);
 		ray.perpWallDist = get_perp_wall_dist(&ray);

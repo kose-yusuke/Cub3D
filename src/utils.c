@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:06:07 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/10/29 10:43:56 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/08 13:51:19 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,17 @@ char	*ft_strndup(char *src, long len)
 	ft_strncpy(p, src, len);
 	p[len] = '\0';
 	return (p);
+}
+
+void	print_grid(t_mgr *mgr)
+{
+	int	i;
+
+	i = 0;
+	while (mgr->map.grid[i] != NULL && i < mgr->map.row)
+	{
+		printf("%s", mgr->map.grid[i]);
+		i++;
+	}
+	printf("%s", "\n");
 }

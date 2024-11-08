@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/07 23:00:04 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/08 20:03:44 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,102 +18,16 @@
 // 	system("leaks -q cub3D");
 // }
 
-void	print_grid(t_mgr *mgr)
-{
-	int	i;
-
-	i = 0;
-	while (mgr->map.grid[i] != NULL && i < mgr->map.row)
-	{
-		printf("%s", mgr->map.grid[i]);
-		i++;
-	}
-	printf("%s", "\n");
-}
-
-void	init_player(t_mgr *mgr, int x, int y, char compass)
-{
-	mgr->player.pos.x = (double)x;
-	mgr->player.pos.y = (double)y;
-	if (compass == 'N')
-	{
-		mgr->player.dir.x = 0;
-		mgr->player.dir.y = -1;
-		mgr->player.camera_plane.x = 0.66;
-		mgr->player.camera_plane.y = 0;
-	}
-	else if (compass == 'S')
-	{
-		mgr->player.dir.x = 0;
-		mgr->player.dir.y = 1;
-		mgr->player.camera_plane.x = -0.66;
-		mgr->player.camera_plane.y = 0;
-	}
-	else if (compass == 'W')
-	{
-		mgr->player.dir.x = -1;
-		mgr->player.dir.y = 0;
-		mgr->player.camera_plane.x = 0;
-		mgr->player.camera_plane.y = -0.66;
-	}
-	else if (compass == 'E')
-	{
-		mgr->player.dir.x = 1;
-		mgr->player.dir.y = 0;
-		mgr->player.camera_plane.x = 0;
-		mgr->player.camera_plane.y = 0.66;
-	}
-}
-
-int	check_map_validity(t_mgr *mgr)
-{
-	int		spawn_count;
-	int		i;
-	int		j;
-	char	cell;
-
-	spawn_count = 0;
-	i = 0;
-	j = 0;
-	cell = '\0';
-	while (i < mgr->map.row)
-	{
-		j = 0;
-		while (j < mgr->map.column)
-		{
-			cell = mgr->map.grid[i][j];
-			if (!is_valid_char(cell))
-			{
-				return (ft_error_message_handler("Error: Invalid character in map\n"));
-			}
-			if (cell == 'N' || cell == 'S' || cell == 'W' || cell == 'E')
-			{
-				if (spawn_count > 0)
-					return (ft_error_message_handler("Error: Multiple player starting positions\n"));
-				spawn_count = 1;
-				init_player(mgr, i, j, cell);
-			}
-			j++;
-		}
-		i++;
-	}
-	if (spawn_count == 0)
-		return (ft_error_message_handler("Error: No player starting position found\n"));
-	return (0);
-}
-
 void	init_mgr(t_mgr *mgr, char *map_filepath)
 {
 	mgr->textures = malloc(sizeof(t_textures));
 	if (!mgr->textures)
-		exit(ft_error_message_handler("Failed to allocate memory for textures"));
+		exit(ft_error_message_handler("Failed to allocate memory for tex"));
 	mgr->map.row = count_rows(mgr, map_filepath);
 	mgr->map.grid = read_cub_file(mgr, map_filepath);
 	mgr->map.column = count_columns(mgr) - 1;
-	// mapのvalidity(init_player)
 	if (check_map_validity(mgr) == 1)
 		exit(1);
-	// textureのvalidity
 }
 
 int	ft_init_render(t_mgr *mgr)
@@ -127,7 +41,7 @@ int	ft_init_render(t_mgr *mgr)
 		exit(1);
 	init_image(mgr);
 	ft_set_xpmfile(mgr);
-    mgr->textures->color_ceiling = (mgr->textures->c_rgb.red << 16) | (mgr->textures->c_rgb.green << 8) | (mgr->textures->c_rgb.blue);
+	mgr->textures->color_ceiling = (mgr->textures->c_rgb.red << 16) | (mgr->textures->c_rgb.green << 8) | (mgr->textures->c_rgb.blue);
 	mgr->textures->color_floor = (mgr->textures->f_rgb.red << 16) | (mgr->textures->f_rgb.green << 8) | (mgr->textures->f_rgb.blue);
 	render_loop(mgr);
 	mlx_hook(mgr->win, ON_KEYDOWN, 1L << 0, ft_event_handler, mgr);

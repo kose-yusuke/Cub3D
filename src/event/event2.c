@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   event2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 11:16:13 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 12:57:37 by koseki.yusu      ###   ########.fr       */
+/*   Created: 2024/11/08 13:41:23 by koseki.yusu       #+#    #+#             */
+/*   Updated: 2024/11/08 13:41:43 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_error_message_handler(char *message)
+int	ft_close(t_mgr *mgr)
 {
-	printf("%s\n%s\n", "Error", message);
-	return (1);
-}
-
-int	is_valid_char(char c)
-{
-	return (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'W'
-		|| c == 'E');
+	mlx_destroy_window(mgr->mlx, mgr->win);
+	exit(0);
 }
