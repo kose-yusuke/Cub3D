@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/07 22:59:31 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/08 12:39:04 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,8 +197,7 @@ void			set_ray_steps_and_initial_side_distances(t_ray *ray,
 					t_mgr *mgr);
 void			perform_dda(t_ray *ray, t_mgr *mgr);
 // texture
-int	decide_draw_texture(t_ray *ray, t_mgr *mgr, int side);
-
+int				decide_draw_texture(t_ray *ray, t_mgr *mgr, int side);
 // debug
 void			print_grid(t_mgr *mgr);
 
