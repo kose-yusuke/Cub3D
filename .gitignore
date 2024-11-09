@@ -18,7 +18,7 @@ secrets.txt
 a.out*
 cub3D
 mock
-test
+# test
 
 # Generated documentation
 docs/
@@ -30,7 +30,7 @@ docs/
 markdown/
 temporary/
 sandbox/
-test*
+# test*
 file*
 tmp*
 debug.md
