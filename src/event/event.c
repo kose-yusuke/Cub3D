@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:02 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 13:44:14 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/09 23:18:44 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ void	move_forward_backward(int keycode, t_mgr *mgr)
 {
 	if (keycode == UP)
 	{
-		if (mgr->map.grid[(int)(mgr->player.pos.x + mgr->player.dir.x
-				* MOVESPEED)][(int)(mgr->player.pos.y)] == '0')
+		if (mgr->map.grid[(int)(mgr->player.pos.y)][(int)(mgr->player.pos.x
+				+ mgr->player.dir.x * MOVESPEED)] != '1')
 			mgr->player.pos.x += mgr->player.dir.x * MOVESPEED;
-		if (mgr->map.grid[(int)(mgr->player.pos.x)][(int)(mgr->player.pos.y
-				+ mgr->player.dir.y * MOVESPEED)] == '0')
+		if (mgr->map.grid[(int)(mgr->player.pos.y + mgr->player.dir.y
+				* MOVESPEED)][(int)(mgr->player.pos.x)] != '1')
 			mgr->player.pos.y += mgr->player.dir.y * MOVESPEED;
 	}
 	else if (keycode == DOWN)
 	{
-		if (mgr->map.grid[(int)(mgr->player.pos.x - mgr->player.dir.x
-				* MOVESPEED)][(int)(mgr->player.pos.y)] == '0')
+		if (mgr->map.grid[(int)(mgr->player.pos.y)][(int)(mgr->player.pos.x
+				- mgr->player.dir.x * MOVESPEED)] != '1')
 			mgr->player.pos.x -= mgr->player.dir.x * MOVESPEED;
-		if (mgr->map.grid[(int)(mgr->player.pos.x)][(int)(mgr->player.pos.y
-				- mgr->player.dir.y * MOVESPEED)] == '0')
+		if (mgr->map.grid[(int)(mgr->player.pos.y - mgr->player.dir.y
+				* MOVESPEED)][(int)(mgr->player.pos.x)] != '1')
 			mgr->player.pos.y -= mgr->player.dir.y * MOVESPEED;
 	}
 }
@@ -38,20 +38,20 @@ void	move_left_right(int keycode, t_mgr *mgr)
 {
 	if (keycode == LEFT)
 	{
-		if (mgr->map.grid[(int)(mgr->player.pos.x - mgr->player.dir.y
-				* MOVESPEED)][(int)(mgr->player.pos.y)] == '0')
+		if (mgr->map.grid[(int)(mgr->player.pos.y)][(int)(mgr->player.pos.x
+				- mgr->player.dir.y * MOVESPEED)] != '1')
 			mgr->player.pos.x += mgr->player.dir.y * MOVESPEED;
-		if (mgr->map.grid[(int)(mgr->player.pos.x)][(int)(mgr->player.pos.y
-				+ mgr->player.dir.x * MOVESPEED)] == '0')
+		if (mgr->map.grid[(int)(mgr->player.pos.y + mgr->player.dir.x
+				* MOVESPEED)][(int)(mgr->player.pos.x)] != '1')
 			mgr->player.pos.y -= mgr->player.dir.x * MOVESPEED;
 	}
 	else if (keycode == RIGHT)
 	{
-		if (mgr->map.grid[(int)(mgr->player.pos.x + mgr->player.dir.y
-				* MOVESPEED)][(int)(mgr->player.pos.y)] == '0')
+		if (mgr->map.grid[(int)(mgr->player.pos.y)][(int)(mgr->player.pos.x
+				+ mgr->player.dir.y * MOVESPEED)] != '1')
 			mgr->player.pos.x -= mgr->player.dir.y * MOVESPEED;
-		if (mgr->map.grid[(int)(mgr->player.pos.x)][(int)(mgr->player.pos.y
-				- mgr->player.dir.x * MOVESPEED)] == '0')
+		if (mgr->map.grid[(int)(mgr->player.pos.y - mgr->player.dir.x
+				* MOVESPEED)][(int)(mgr->player.pos.x)] != '1')
 			mgr->player.pos.y += mgr->player.dir.x * MOVESPEED;
 	}
 }
@@ -95,6 +95,8 @@ int	ft_event_handler(int keycode, t_mgr *mgr)
 		ft_close(mgr);
 	else
 		ft_move_player(keycode, mgr);
+	printf("%s%d%s%d\n", "position: x: ", (int)mgr->player.pos.x, " y : ",
+		(int)mgr->player.pos.y);
 	printf("%s%f%s%f\n", "position: x: ", mgr->player.pos.x, " y : ",
 		mgr->player.pos.y);
 	printf("%s%f%s%f\n", "direction: x: ", mgr->player.dir.x, " y : ",
