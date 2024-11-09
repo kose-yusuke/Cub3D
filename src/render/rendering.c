@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:46:52 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 14:37:06 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/09 15:16:18 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	render_loop(t_mgr *mgr)
 	int		line_height;
 
 	x = 0;
-	cast_floor_ceiling(mgr);
+	draw_floor_and_ceiling(mgr);
 	while (x < SCREEN_WIDTH)
 	{
 		init_ray_direction(&ray, mgr, x);
