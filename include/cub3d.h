@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/09 15:15:53 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/10 02:23:01 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@
 // # define SCREEN_HEIGHT 720
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 600
-# define mapWidth 24
-# define mapHeight 24
 # define MOVESPEED 0.125
 # define ROTSPEED 0.1
-# define texWidth 64
-# define texHeight 64
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
 
 // valid char
 # define WALL 1
@@ -107,10 +105,9 @@ typedef struct s_ray
 	int			step_y;
 	char		ray_mass;
 	int			side;
-	double		time;
-	double		oldTime;
-	double		perpWallDist;
+	double		perpwalldist;
 	int			hit;
+	int			tex_side;
 }				t_ray;
 
 typedef struct s_rgb
@@ -195,6 +192,8 @@ int				render_loop(t_mgr *mgr);
 void			init_image(t_mgr *mgr);
 void			put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
 void			draw_floor_and_ceiling(t_mgr *mgr);
+double			get_perp_wall_dist(t_ray *ray);
+int				get_tex_pixel_color(t_mgr *mgr, t_ray *ray, int tex_x, int tex_y);
 // dda
 void			init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
 void			set_ray_steps_and_initial_side_distances(t_ray *ray,
