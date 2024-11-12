@@ -1,7 +1,5 @@
 #include "cub3d.h"
 
-
-
 static bool	is_valid_map_input(char *line)
 {
 	while (*line)

@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/13 03:32:48 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/11/13 03:36:42 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || !is_valid_extension(argv[1], ".cub"))
 		return (ft_error_message_handler("Usage: ./cub3D <map_name>.cub"));
-	// validate_map(&(mgr.map), argv[1]);
+	validate_map(&(mgr.map), argv[1]);
 	init_mgr(&mgr, argv[1]);
 	ft_init_render(&mgr);
 	return (0);
