@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/13 03:13:45 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/11/13 03:34:58 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@
 // # define SCREEN_HEIGHT 720
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 600
-# define mapWidth 24
-# define mapHeight 24
 # define MOVESPEED 0.125
 # define ROTSPEED 0.1
-# define texWidth 64
-# define texHeight 64
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
 
 // valid char
 # define WALL 1
@@ -118,10 +116,9 @@ typedef struct s_ray
 	int			step_y;
 	char		ray_mass;
 	int			side;
-	double		time;
-	double		oldTime;
-	double		perpWallDist;
+	double		perpwalldist;
 	int			hit;
+	int			tex_side;
 }				t_ray;
 
 typedef struct s_rgb
@@ -206,19 +203,9 @@ double			absolute_value(double value);
 int				render_loop(t_mgr *mgr);
 void			init_image(t_mgr *mgr);
 void			put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
-void			cast_floor_ceiling(t_mgr *mgr);
-// validate
-bool			validate_map_data(int fd);
-bool			validate_map_figure(t_map *map, int fd);
-bool			is_valid_color_setting(char *setting, t_check_list *check_list);
-void			skip_space(char **tmp);
-void			skip_nonspace(char **tmp);
-bool			is_blank_line(char *line);
-char			*skip_blank_lines(int fd);
-bool			is_valid_wallpaper(char *path, t_check_list *check_list);
-bool			is_valid_extension(const char *path, const char *extension);
-bool			validate_map(t_map *map, const char *path);
-
+void			draw_floor_and_ceiling(t_mgr *mgr);
+double			get_perp_wall_dist(t_ray *ray);
+int				get_tex_pixel_color(t_mgr *mgr, t_ray *ray, int tex_x, int tex_y);
 // dda
 void			init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
 void			set_ray_steps_and_initial_side_distances(t_ray *ray,
