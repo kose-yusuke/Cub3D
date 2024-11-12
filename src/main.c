@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 20:03:44 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/13 03:21:38 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ int	main(int argc, char **argv)
 {
 	t_mgr	mgr;
 
-	if (argc != 2)
+	if (argc != 2 || !is_valid_extension(argv[1], ".cub"))
 		return (ft_error_message_handler("Usage: ./cub3D <map_name>.cub"));
+	// validate_map(&(mgr.map), argv[1]);
 	init_mgr(&mgr, argv[1]);
 	ft_init_render(&mgr);
 	// mlx_destroy_image(&mgr->mlx, &mgr->img.img);
