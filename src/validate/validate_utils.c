@@ -2,37 +2,38 @@
 
 void	skip_space(char **tmp)
 {
-	while (*tmp && **tmp == " ")
-		*tmp++;
+	if (!tmp || !*tmp)
+		return ;
+	while (**tmp == ' ')
+		(*tmp)++;
 }
 
 void	skip_nonspace(char **tmp)
 {
-	while (*tmp && **tmp != ' ')
+	if (!tmp || !*tmp)
+		return ;
+	while (**tmp && **tmp != ' ')
 		(*tmp)++;
 }
 
-bool	trim_trailing_space(char *str)
+bool	is_blank_line(char *line)
 {
-	skip_nonspace(&str);
-	while (*str && (*str == ' ' || *str == '\n'))
-	{
-		*str = '\0';
-		str++;
-	}
-	return (*str == '\0');
+	skip_space(&line);
+	return (*line == '\0' || *line == '\n');
 }
 
-bool	is_valid_path(const char *path_copy)
+char	*skip_blank_lines(int fd)
 {
-	int	fd;
+	char	*line;
 
-	fd = open(path_copy, O_RDONLY);
-	if (fd == -1)
+	line = NULL;
+	while (true)
 	{
-		ft_error_message_handler(strerror(errno));
-		return (false);
+		line = get_next_line(fd);
+		if (!line)
+			return (NULL); // map figureの中身に到達しない場合エラー
+		if (!is_blank_line(line))
+			return (line);
+		free(line);
 	}
-	close(fd);
-	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 20:07:36 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/13 03:13:45 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@
 # define EAST_WALL 3
 # define DIRECTION 4
 // STRUCTURE
+
+typedef struct s_check_list
+{
+	bool		north;
+	bool		south;
+	bool		west;
+	bool		east;
+	bool		floor;
+	bool		ceiling;
+	bool		invalid;
+}				t_check_list;
 typedef enum e_event
 {
 	ON_KEYDOWN = 2,
@@ -178,6 +189,7 @@ void			init_player(t_mgr *mgr, int x, int y, char compass);
 // error handling
 int				ft_error_message_handler(char *message);
 int				is_valid_char(char c);
+void			error_exit(char *message);
 // read cubfile
 char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
@@ -195,6 +207,18 @@ int				render_loop(t_mgr *mgr);
 void			init_image(t_mgr *mgr);
 void			put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
 void			cast_floor_ceiling(t_mgr *mgr);
+// validate
+bool			validate_map_data(int fd);
+bool			validate_map_figure(t_map *map, int fd);
+bool			is_valid_color_setting(char *setting, t_check_list *check_list);
+void			skip_space(char **tmp);
+void			skip_nonspace(char **tmp);
+bool			is_blank_line(char *line);
+char			*skip_blank_lines(int fd);
+bool			is_valid_wallpaper(char *path, t_check_list *check_list);
+bool			is_valid_extension(const char *path, const char *extension);
+bool			validate_map(t_map *map, const char *path);
+
 // dda
 void			init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
 void			set_ray_steps_and_initial_side_distances(t_ray *ray,
