@@ -17,13 +17,13 @@ bool	validate_map(t_map *map, const char *path)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		error_exit(strerror(errno));
-	ft_bzero(map, sizeof(t_map)); // 全体を初期化
+	ft_bzero(map, sizeof(t_map));
 	if (!validate_map_data(fd) || !validate_map_figure(map, fd))
 	{
-		close(fd); // 誤記を修正
+		close(fd);
 		error_exit("Invalid map");
 	}
 	close(fd);
-	printf("map OK");
+	printf("map OK\n"); // TODO: remove
 	return (true);
 }

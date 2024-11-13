@@ -26,18 +26,18 @@ static void	check_data_content(char *line, t_check_list *check_list)
 	char	*setting;
 
 	skip_space(&line);
-	if (*line == '\n' || *line == '\0') // 空行を許可
+	if (*line == '\n' || *line == '\0')
 		return ;
-	id = line;            // 識別子 (NO, SO, WE, EA, F, C など) を取得
-	skip_nonspace(&line); // 識別子部分をスキップ
+	id = line;
+	skip_nonspace(&line);
 	skip_space(&line);
-	if (*line == '\n' || *line == '\0') // 設定値がない場合はエラーとする
+	if (*line == '\n' || *line == '\0')
 	{
 		check_list->invalid = true;
 		return ;
 	}
-	setting = line;                            // パスまたはカラーの設定値部分を取得
-	validate_setting(id, setting, check_list); // 識別子と設定値の検証
+	setting = line;
+	validate_setting(id, setting, check_list);
 }
 
 static bool	is_check_list_satisfied(t_check_list *check_list)
@@ -68,6 +68,4 @@ bool	validate_map_data(int fd)
 		if (is_check_list_satisfied(&check_list))
 			return (true);
 	}
-	printf("here?");
-	return (false);
 }
