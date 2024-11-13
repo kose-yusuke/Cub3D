@@ -44,4 +44,10 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+test:
+	./cub3D map/valid/map.cub
+
+invalid:
+	./cub3D map/invalid/invalid_data_00.cub
+
+.PHONY: all clean fclean re test invalid
