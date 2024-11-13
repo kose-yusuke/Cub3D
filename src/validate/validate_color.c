@@ -36,7 +36,7 @@ bool	is_valid_color_setting(char *setting, t_check_list *check_list)
 		return (false);
 	}
 	color = endptr + 1;
-	if (!is_valid_color(color, &endptr) || !is_valid_end(&endptr, '\0'))
+	if (!is_valid_color(color, &endptr) || !is_valid_end(&endptr, '\n'))
 	{
 		check_list->invalid = true;
 		return (false);

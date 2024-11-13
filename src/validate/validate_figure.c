@@ -4,7 +4,7 @@ static bool	is_valid_map_input(char *line)
 {
 	while (*line)
 	{
-		if (*line != ' ' && !is_valid_char(*line))
+		if (*line != ' ' && *line != '\n' && !is_valid_char(*line))
 			return (false);
 		line++;
 	}
@@ -27,17 +27,18 @@ static void	update_flags(bool *is_valid_map, bool *in_map, char *line)
 
 static void	update_map_size(t_map *map, char *line, bool *is_valid_map)
 {
-	const size_t	line_len = ft_strlen(line);
+	size_t	line_len;
 
-	if (line_len > INT_MAX) // 行の長さが制限を超えるとだめ　INTMAXは大きいかも
+	line_len = ft_strlen(line);
+	if (line[line_len - 1] == '\n')
+		line_len--;
+	if (line_len > INT_MAX) // XXX: INT_MAX 上限は大きすぎないか検討する
 	{
 		*is_valid_map = false;
 		return ;
 	}
-	// 最大列数を更新
 	if (map->column < (int)line_len)
 		map->column = (int)line_len;
-	// 行数を更新
 	map->row++;
 }
 
@@ -47,9 +48,9 @@ bool	validate_map_figure(t_map *map, int fd)
 	bool	is_valid_map;
 	bool	in_map;
 
-	line = skip_blank_lines(fd); // map figure以前のblank lineは飛ばす
-	is_valid_map = true;         // 不正なinputを見つけるまで、仮に正とする
-	in_map = true;               // blank lineは飛ばしたので、map figure開始
+	line = skip_blank_lines(fd);
+	is_valid_map = true;
+	in_map = true;
 	while (line)
 	{
 		update_flags(&is_valid_map, &in_map, line);
@@ -62,5 +63,8 @@ bool	validate_map_figure(t_map *map, int fd)
 	}
 	if (map->row == 0 || map->column == 0)
 		is_valid_map = false;
+	// TODO: あとでremove
+	if (is_valid_map)
+		printf("row %d, col %d\n", map->row, map->column);
 	return (is_valid_map);
 }

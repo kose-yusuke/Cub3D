@@ -1,14 +1,17 @@
 #include "cub3d.h"
 
-static bool	trim_trailing_space(char *str)
+static void	trim_trailing_space(char *str)
 {
-	skip_nonspace(&str);
-	while (*str && (*str == ' ' || *str == '\n'))
+	char	*end;
+
+	if (!str || !*str)
+		return ;
+	end = str + ft_strlen(str) - 1;
+	while (end > str && (*end == ' ' || *end == '\n'))
 	{
-		*str = '\0';
-		str++;
+		*end = '\0';
+		end--;
 	}
-	return (*str == '\0');
 }
 
 static bool	is_valid_path(const char *path_copy)
@@ -35,7 +38,8 @@ bool	is_valid_wallpaper(char *path, t_check_list *check_list)
 		check_list->invalid = true;
 		return (false);
 	}
-	if (!trim_trailing_space(path_copy) || !is_valid_path(path_copy))
+	trim_trailing_space(path_copy);
+	if (!is_valid_extension(path_copy, ".xpm") || !is_valid_path(path_copy))
 	{
 		check_list->invalid = true;
 		free(path_copy);
