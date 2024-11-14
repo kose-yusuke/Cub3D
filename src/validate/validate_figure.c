@@ -63,8 +63,5 @@ bool	validate_map_figure(t_map *map, int fd)
 	}
 	if (map->row == 0 || map->column == 0)
 		is_valid_map = false;
-	// TODO: あとでremove
-	if (is_valid_map)
-		printf("row %d, col %d\n", map->row, map->column);
 	return (is_valid_map);
 }

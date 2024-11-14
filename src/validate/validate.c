@@ -1,13 +1,53 @@
 #include "cub3d.h"
 
-bool	is_valid_extension(const char *path, const char *ext)
+static void	check_data_content(char *line, t_check_list *check_list)
 {
-	const size_t	path_len = ft_strlen(path);
-	const size_t	ext_len = ft_strlen(ext);
+	char	*id;
+	char	*setting;
 
-	if (!path || !ext || path_len <= ext_len)
+	skip_space(&line);
+	if (*line == '\n' || *line == '\0')
+		return ;
+	id = line;
+	skip_nonspace(&line);
+	skip_space(&line);
+	if (*line == '\n' || *line == '\0')
+	{
+		check_list->invalid = true;
+		return ;
+	}
+	setting = line;
+	validate_setting(id, setting, check_list);
+}
+
+static bool	is_check_list_satisfied(t_check_list *check_list)
+{
+	if (check_list->invalid)
 		return (false);
-	return (ft_strncmp(&path[path_len - ext_len], ext, ext_len) == 0);
+	if (check_list->north && check_list->south && check_list->west
+		&& check_list->east && check_list->floor && check_list->ceiling)
+		return (true);
+	return (false);
+}
+
+static bool	validate_map_data(int fd)
+{
+	t_check_list	check_list;
+	char			*line;
+
+	ft_bzero(&check_list, sizeof(t_check_list));
+	while (true)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			return (false);
+		check_data_content(line, &check_list);
+		free(line);
+		if (check_list.invalid)
+			return (false);
+		if (is_check_list_satisfied(&check_list))
+			return (true);
+	}
 }
 
 bool	validate_map(t_map *map, const char *path)
@@ -24,6 +64,6 @@ bool	validate_map(t_map *map, const char *path)
 		error_exit("Invalid map");
 	}
 	close(fd);
-	printf("map OK\n"); // TODO: remove
+	printf("validate map OK\n"); // TODO: remove
 	return (true);
 }

@@ -31,7 +31,7 @@ char	*skip_blank_lines(int fd)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			return (NULL); // map figureの中身に到達しない場合エラー
+			return (NULL);
 		if (!is_blank_line(line))
 			return (line);
 		free(line);
