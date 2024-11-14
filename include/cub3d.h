@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/13 03:46:43 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/11/15 01:21:12 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 // MACRO
 # define SQUARE_SIZE 32
 # define WINDOW_NAME "cub3D"
+# define REQUIRED_SETTINGS 6
+# define MAX_ROWS 10000 // TODO: 仮
+# define MAX_COLS 10000 // TODO: 仮
 
 // # define SCREEN_WIDTH 1280
 // # define SCREEN_HEIGHT 720
@@ -186,8 +189,11 @@ void			init_player(t_mgr *mgr, int x, int y, char compass);
 // error handling
 int				ft_error_message_handler(char *message);
 int				is_valid_char(char c);
+int				print_error(char *message);
 void			error_exit(char *message);
 // read cubfile
+bool			parse_map_data(t_textures *textures, int fd);
+void			init_mgr(t_mgr *mgr, char *map_filepath);
 char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
 int				count_columns(t_mgr *mgr);
@@ -196,6 +202,10 @@ void			parse_texture_line(char *line, t_mgr *mgr, int count_row);
 // map_check
 int				check_map_validity(t_mgr *mgr);
 // utils
+void			xfree(void *ptr);
+void			*xmalloc(size_t size);
+int				xopen(char *map_filepath);
+int				xclose(int fildes);
 char			*ft_strndup(char *src, long len);
 size_t			ft_strlen_until_newline(const char *str);
 double			absolute_value(double value);
@@ -208,15 +218,16 @@ double			get_perp_wall_dist(t_ray *ray);
 int				get_tex_pixel_color(t_mgr *mgr, t_ray *ray, int tex_x,
 					int tex_y);
 // validate
-bool			is_valid_color_setting(char *setting, t_check_list *check_list);
-bool			validate_map_data(int fd);
 bool			validate_map_figure(t_map *map, int fd);
+char			*prepare_trimmed_path(char *path);
+bool			is_valid_extension(const char *path, const char *ext);
+bool			is_valid_path(const char *path_copy);
+void			validate_setting(char *id, char *setting,
+					t_check_list *check_list);
 void			skip_space(char **tmp);
 void			skip_nonspace(char **tmp);
 bool			is_blank_line(char *line);
 char			*skip_blank_lines(int fd);
-bool			is_valid_wallpaper(char *path, t_check_list *check_list);
-bool			is_valid_extension(const char *path, const char *ext);
 bool			validate_map(t_map *map, const char *path);
 // dda
 void			init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
