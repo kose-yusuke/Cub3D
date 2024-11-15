@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 23:18:11 by ykoseki           #+#    #+#             */
-/*   Updated: 2024/10/28 13:21:34 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/16 04:10:53 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*all_free(char *line, char *buf)
 int	vsnorm(char **line, char **rest)
 {
 	free(*rest);
-	 *rest = NULL;
+	*rest = NULL;
 	*line = NULL;
 	return (1);
 }
@@ -97,7 +97,7 @@ char	*get_next_line(int fd)
 		if (rest[fd])
 		{
 			free(rest[fd]);
-			 rest[fd] = NULL;
+			rest[fd] = NULL;
 		}
 		return (NULL);
 	}
@@ -110,7 +110,7 @@ char	*get_next_line(int fd)
 	return (tmp);
 }
 
-//int main(){
+// int main(){
 //	char *str = NULL;
 //	int fd = open("get_next_line.c", O_RDONLY);
 //
