@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_figure.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 17:33:04 by sakitaha          #+#    #+#             */
+/*   Updated: 2024/11/15 17:35:04 by sakitaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static bool	is_valid_map_input(char *line)
 {
 	while (*line)
 	{
-		if (*line != ' ' && *line != '\n' && !is_valid_char(*line))
+		if (!is_map_char(*line) && *line != '\n')
 			return (false);
 		line++;
 	}
@@ -32,7 +44,7 @@ static void	update_map_size(t_map *map, char *line, bool *is_valid_map)
 	line_len = ft_strlen(line);
 	if (line[line_len - 1] == '\n')
 		line_len--;
-	if (line_len > INT_MAX) // XXX: INT_MAX 上限は大きすぎないか検討する
+	if (line_len > INT_MAX)
 	{
 		*is_valid_map = false;
 		return ;

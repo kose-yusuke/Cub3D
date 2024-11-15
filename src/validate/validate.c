@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 17:36:11 by sakitaha          #+#    #+#             */
+/*   Updated: 2024/11/15 17:36:36 by sakitaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	check_data_content(char *line, t_check_list *check_list)
@@ -64,6 +76,5 @@ bool	validate_map(t_map *map, const char *path)
 		error_exit("Invalid map");
 	}
 	close(fd);
-	printf("validate map OK\n"); // TODO: remove
 	return (true);
 }

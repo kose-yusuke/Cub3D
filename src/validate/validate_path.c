@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_path.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 17:35:48 by sakitaha          #+#    #+#             */
+/*   Updated: 2024/11/15 17:35:59 by sakitaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	trim_trailing_space(char *str)
@@ -48,5 +60,3 @@ bool	is_valid_path(const char *path_copy)
 	close(fd);
 	return (true);
 }
-
-
