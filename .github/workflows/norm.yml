@@ -2,7 +2,7 @@
 
 name: NormCI
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on: [pull_request, workflow_dispatch]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -17,11 +17,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: checkout git repository
         uses: actions/checkout@v2
-      
+
       # - name: Install Norminette
       #   run: |
       #     python3 -m pip install --upgrade pip setuptools
       #     python3 -m pip install norminette
-        
+
       - name: Run Norminette
-        run: norminette
+        run: norminette $(find . -type f -name '*.c' -o -name '*.h' | grep -v "minilibx-linux/")
