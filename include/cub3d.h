@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/15 01:21:12 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:28:11 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,10 +188,13 @@ int				ft_close(t_mgr *mgr);
 void			init_player(t_mgr *mgr, int x, int y, char compass);
 // error handling
 int				ft_error_message_handler(char *message);
-int				is_valid_char(char c);
 int				print_error(char *message);
 void			error_exit(char *message);
-// read cubfile
+// parse
+int				is_boundary_char(char c);
+int				is_player_char(char cell);
+int				is_map_char(char c);
+bool			is_periphery_cell(int row, int col, int max_row, int max_col);
 bool			parse_map_data(t_textures *textures, int fd);
 void			init_mgr(t_mgr *mgr, char *map_filepath);
 char			**read_cub_file(t_mgr *mgr, char *map_filepath);
@@ -200,7 +203,7 @@ int				count_columns(t_mgr *mgr);
 void			ft_set_xpmfile(t_mgr *mgr);
 void			parse_texture_line(char *line, t_mgr *mgr, int count_row);
 // map_check
-int				check_map_validity(t_mgr *mgr);
+bool			check_map_validity(t_mgr *mgr);
 // utils
 void			xfree(void *ptr);
 void			*xmalloc(size_t size);
