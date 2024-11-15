@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/15 17:28:11 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/11/16 04:05:09 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
 int				count_columns(t_mgr *mgr);
 void			ft_set_xpmfile(t_mgr *mgr);
-void			parse_texture_line(char *line, t_mgr *mgr, int count_row);
+void			parse_texture_line(char *line, t_mgr *mgr);
 // map_check
 bool			check_map_validity(t_mgr *mgr);
 // utils

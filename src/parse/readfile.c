@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   readfile.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:17:18 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 13:34:06 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/16 04:04:32 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*
 int	count_rows(t_mgr *mgr, char *map_filepath)
 {
 	int		fd;
@@ -86,3 +87,5 @@ char	**read_cub_file(t_mgr *mgr, char *map_filepath)
 	close(fd);
 	return (mgr->map.grid);
 }
+
+ */

@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:35:21 by sakitaha          #+#    #+#             */
-/*   Updated: 2024/11/15 17:35:22 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/11/16 04:05:26 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ static bool	is_valid_color_setting(char *setting, t_check_list *check_list)
 
 void	validate_setting(char *id, char *setting, t_check_list *check_list)
 {
-	int	len;
-
 	if (ft_strncmp(id, "NO ", 3) == 0 && !check_list->north)
 		check_list->north = is_valid_wallpaper(setting, check_list);
 	else if (ft_strncmp(id, "SO ", 3) == 0 && !check_list->south)
