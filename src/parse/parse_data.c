@@ -6,16 +6,22 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:28:53 by sakitaha          #+#    #+#             */
-/*   Updated: 2024/11/15 17:29:15 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/11/16 03:14:23 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "ft_strtol.h"
 
-static void	set_wallpaper(char **texture_path, char *setting)
+static bool	set_wallpaper(char **texture_path, char *setting)
 {
-	*texture_path = setting;
+	char	*trimmed_str;
+
+	trimmed_str = prepare_trimmed_path(setting);
+	if (!trimmed_str)
+		return (false);
+	*texture_path = trimmed_str;
+	return (true);
 }
 
 static void	set_color(t_rgb *rgb, char *setting)
@@ -36,13 +42,13 @@ static void	set_color(t_rgb *rgb, char *setting)
 static bool	parse_setting(t_textures *textures, char *id, char *setting)
 {
 	if (ft_strncmp(id, "NO ", 3) == 0)
-		set_wallpaper(&textures->north_texture_path, setting);
+		return (set_wallpaper(&textures->north_texture_path, setting));
 	else if (ft_strncmp(id, "SO ", 3) == 0)
-		set_wallpaper(&textures->south_texture_path, setting);
+		return (set_wallpaper(&textures->south_texture_path, setting));
 	else if (ft_strncmp(id, "WE ", 3) == 0)
-		set_wallpaper(&textures->west_texture_path, setting);
+		return (set_wallpaper(&textures->west_texture_path, setting));
 	else if (ft_strncmp(id, "EA ", 3) == 0)
-		set_wallpaper(&textures->east_texture_path, setting);
+		return (set_wallpaper(&textures->east_texture_path, setting));
 	else if (ft_strncmp(id, "F ", 2) == 0)
 		set_color(&textures->f_rgb, setting);
 	else if (ft_strncmp(id, "C ", 2) == 0)
@@ -65,9 +71,7 @@ static bool	parse_line(t_textures *textures, char *line, size_t *counter)
 	skip_space(&line);
 	if (*line == '\n' || *line == '\0')
 		return (false);
-	setting = prepare_trimmed_path(line);
-	if (!setting)
-		return (false);
+	setting = line;
 	if (!parse_setting(textures, id, setting))
 		return (false);
 	(*counter)++;
@@ -80,7 +84,7 @@ bool	parse_map_data(t_textures *textures, int fd)
 	size_t	counter;
 
 	counter = 0;
-	while (true)
+	while (counter != REQUIRED_SETTINGS)
 	{
 		line = get_next_line(fd);
 		if (!line)
@@ -91,8 +95,6 @@ bool	parse_map_data(t_textures *textures, int fd)
 			return (false);
 		}
 		free(line);
-		if (counter == REQUIRED_SETTINGS)
-			break ;
 	}
-	return (counter == REQUIRED_SETTINGS);
+	return (true);
 }
