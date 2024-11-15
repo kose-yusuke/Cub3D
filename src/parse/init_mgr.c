@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_mgr.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 17:32:35 by sakitaha          #+#    #+#             */
+/*   Updated: 2024/11/15 17:32:50 by sakitaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-char	**allocate_map(int rows, int cols)
+static char	**allocate_map(int rows, int cols)
 {
 	char	**map;
 	int		i;
@@ -11,7 +23,7 @@ char	**allocate_map(int rows, int cols)
 	i = 0;
 	while (i < rows)
 	{
-		map[i] = xmalloc(sizeof(char) * (cols + 1)); // +`\0`
+		map[i] = xmalloc(sizeof(char) * (cols + 1));
 		ft_memset(map[i], ' ', cols);
 		map[i][cols] = '\0';
 		i++;
@@ -19,19 +31,19 @@ char	**allocate_map(int rows, int cols)
 	return (map);
 }
 
-void	copy_grid_line(char *grid_row, char *line)
+static void	copy_grid_line(char *grid_row, char *line)
 {
 	if (!grid_row || !line)
 		return ;
 	while (*grid_row && *line && *line != '\n')
 	{
-		*grid_row = *line; // '\n' '\0'はコピーしたくない
+		*grid_row = *line;
 		grid_row++;
 		line++;
 	}
 }
 
-bool	parse_map_figure(t_map *map, int fd)
+static bool	parse_map_figure(t_map *map, int fd)
 {
 	char	*line;
 	int		i;
@@ -53,8 +65,7 @@ bool	parse_map_figure(t_map *map, int fd)
 	return (i == map->row);
 }
 
-// TODO: debug print -> remove
-bool	parse_file(t_mgr *mgr, char *map_filepath)
+static bool	parse_file(t_mgr *mgr, char *map_filepath)
 {
 	const int	fd = xopen(map_filepath);
 
@@ -67,39 +78,13 @@ bool	parse_file(t_mgr *mgr, char *map_filepath)
 	return (true);
 }
 
-void	print_color(char *place, t_rgb *rgb)
-{
-	printf("%s : %d,%d,%d\n", place, rgb->red, rgb->green, rgb->blue);
-}
-
-void	print_data(t_textures *textures)
-{
-	printf("Data\n");
-	printf("-----------------\n");
-	printf("NO : %s\n", textures->north_texture_path);
-	printf("SO : %s\n", textures->south_texture_path);
-	printf("WE : %s\n", textures->west_texture_path);
-	printf("EA : %s\n", textures->east_texture_path);
-	print_color("F ", &textures->f_rgb);
-	print_color("C ", &textures->c_rgb);
-}
-
-void	print_map(t_map *map)
-{
-	printf("\nMap (col %d, row %d)\n", map->column, map->row);
-	printf("-----------------\n");
-	for (int i = 0; i < map->row; i++)
-		printf("%s\n", map->grid[i]);
-}
-
 void	init_mgr(t_mgr *mgr, char *map_filepath)
 {
-	// row & column の大きさは、validate_map()で取得済み
 	mgr->textures = xmalloc(sizeof(t_textures));
-	ft_bzero(mgr->textures, sizeof(t_textures)); // 初期化
+	ft_bzero(mgr->textures, sizeof(t_textures));
 	mgr->map.grid = allocate_map(mgr->map.row, mgr->map.column);
 	if (!parse_file(mgr, map_filepath))
 		error_exit("Invalid map");
-	print_data(mgr->textures); // TODO: remove
-	print_map(&mgr->map); // TODO: remove
+	if (!check_map_validity(mgr))
+		exit(EXIT_FAILURE);
 }

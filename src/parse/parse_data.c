@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_data.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 17:28:53 by sakitaha          #+#    #+#             */
+/*   Updated: 2024/11/15 17:29:15 by sakitaha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include "ft_strtol.h"
 
@@ -46,12 +58,12 @@ static bool	parse_line(t_textures *textures, char *line, size_t *counter)
 	char	*setting;
 
 	skip_space(&line);
-	if (*line == '\n' || *line == '\0') // 空行は許容
+	if (*line == '\n' || *line == '\0')
 		return (true);
 	id = line;
 	skip_nonspace(&line);
 	skip_space(&line);
-	if (*line == '\n' || *line == '\0') // 検証済みのため、本来到達しない
+	if (*line == '\n' || *line == '\0')
 		return (false);
 	setting = prepare_trimmed_path(line);
 	if (!setting)
