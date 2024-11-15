@@ -1,8 +1,8 @@
 NAME     = cub3D
 CC       = cc
 # CFLAGS   = $(INCLUDES)
-CFLAGS   = $(INCLUDES) -g -fsanitize=address
-# CFLAGS   = -Wall -Wextra -Werror $(INCLUDES)
+# CFLAGS   = $(INCLUDES) -g -fsanitize=address
+CFLAGS   = -Wall -Wextra -Werror $(INCLUDES)
 INCLUDES = -I $(LIBFT_DIR)/include -I $(MLX_DIR) -I include
 LIB = -L $(MLX_DIR) -l $(MLX) -L $(LIBFT_DIR) -l $(LIBFT) \
 	-L/usr/X11R6/lib -lX11 -lXext
@@ -12,6 +12,12 @@ LIBFT = ft
 LIBFT_DIR = ./libft
 MLX_DIR = ./minilibx-linux
 MLX = mlx_Darwin
+
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S), Linux)
+    MLX = mlx
+endif
 
 SRCS     = $(SRC_DIR)/main.c $(SRC_DIR)/event/event.c $(SRC_DIR)/error/error.c $(SRC_DIR)/parse/readfile.c $(SRC_DIR)/utils/utils.c \
 		$(SRC_DIR)/dda/dda.c $(SRC_DIR)/render/rendering.c $(SRC_DIR)/render/floor.c $(SRC_DIR)/parse/init_texture.c \
@@ -26,9 +32,9 @@ OBJS     = $(SRCS:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C $(LIBFT_DIR) clean
-	make -C $(MLX_DIR) clean
-	gcc $(CFLAGS) $(OBJS) $(INCLUDE) $(LIB) -framework OpenGL -framework AppKit -o $(NAME)
+	make -C $(LIBFT_DIR)
+	make -C $(MLX_DIR)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
 
 .c.o: $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
