@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   cell_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 11:16:13 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/15 16:02:23 by sakitaha         ###   ########.fr       */
+/*   Created: 2024/11/15 17:27:48 by sakitaha          #+#    #+#             */
+/*   Updated: 2024/11/15 17:27:49 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_error_message_handler(char *message)
+int	is_boundary_char(char c)
 {
-	printf("%s\n%s\n", "Error", message);
-	return (1);
+	return (c == '1' || c == ' ');
 }
 
-int	print_error(char *message)
+int	is_player_char(char cell)
 {
-	write(2, "Error\n", 6);
-	write(2, message, ft_strlen(message));
-	write(2, "\n", 1);
-	return (1);
+	return (cell == 'N' || cell == 'S' || cell == 'W' || cell == 'E');
 }
 
-void	error_exit(char *message)
+int	is_map_char(char c)
 {
-	print_error(message);
-	exit(EXIT_FAILURE);
+	return (c == '0' || is_boundary_char(c) || is_player_char(c));
+}
+
+bool	is_periphery_cell(int row, int col, int max_row, int max_col)
+{
+	return (row == 0 || row == max_row - 1 || col == 0 || col == max_col - 1);
 }

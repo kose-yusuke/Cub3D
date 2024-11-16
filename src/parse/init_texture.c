@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:20:03 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 13:36:30 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/16 04:04:50 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	parse_rgb(char *line, t_rgb *rgb)
 	rgb->blue = ft_atoi(start);
 }
 
-void	parse_texture_line(char *line, t_mgr *mgr, int count_row)
+void	parse_texture_line(char *line, t_mgr *mgr)
 {
 	int	len;
 

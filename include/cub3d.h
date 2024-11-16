@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/10 02:23:01 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/16 04:05:09 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 // MACRO
 # define SQUARE_SIZE 32
 # define WINDOW_NAME "cub3D"
+# define REQUIRED_SETTINGS 6
+# define MAX_ROWS 10000 // TODO: 仮
+# define MAX_COLS 10000 // TODO: 仮
 
 // # define SCREEN_WIDTH 1280
 // # define SCREEN_HEIGHT 720
@@ -55,6 +58,17 @@
 # define EAST_WALL 3
 # define DIRECTION 4
 // STRUCTURE
+
+typedef struct s_check_list
+{
+	bool		north;
+	bool		south;
+	bool		west;
+	bool		east;
+	bool		floor;
+	bool		ceiling;
+	bool		invalid;
+}				t_check_list;
 typedef enum e_event
 {
 	ON_KEYDOWN = 2,
@@ -174,16 +188,27 @@ int				ft_close(t_mgr *mgr);
 void			init_player(t_mgr *mgr, int x, int y, char compass);
 // error handling
 int				ft_error_message_handler(char *message);
-int				is_valid_char(char c);
-// read cubfile
+int				print_error(char *message);
+void			error_exit(char *message);
+// parse
+int				is_boundary_char(char c);
+int				is_player_char(char cell);
+int				is_map_char(char c);
+bool			is_periphery_cell(int row, int col, int max_row, int max_col);
+bool			parse_map_data(t_textures *textures, int fd);
+void			init_mgr(t_mgr *mgr, char *map_filepath);
 char			**read_cub_file(t_mgr *mgr, char *map_filepath);
 int				count_rows(t_mgr *mgr, char *map_filepath);
 int				count_columns(t_mgr *mgr);
 void			ft_set_xpmfile(t_mgr *mgr);
-void			parse_texture_line(char *line, t_mgr *mgr, int count_row);
+void			parse_texture_line(char *line, t_mgr *mgr);
 // map_check
-int				check_map_validity(t_mgr *mgr);
+bool			check_map_validity(t_mgr *mgr);
 // utils
+void			xfree(void *ptr);
+void			*xmalloc(size_t size);
+int				xopen(char *map_filepath);
+int				xclose(int fildes);
 char			*ft_strndup(char *src, long len);
 size_t			ft_strlen_until_newline(const char *str);
 double			absolute_value(double value);
@@ -193,7 +218,20 @@ void			init_image(t_mgr *mgr);
 void			put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
 void			draw_floor_and_ceiling(t_mgr *mgr);
 double			get_perp_wall_dist(t_ray *ray);
-int				get_tex_pixel_color(t_mgr *mgr, t_ray *ray, int tex_x, int tex_y);
+int				get_tex_pixel_color(t_mgr *mgr, t_ray *ray, int tex_x,
+					int tex_y);
+// validate
+bool			validate_map_figure(t_map *map, int fd);
+char			*prepare_trimmed_path(char *path);
+bool			is_valid_extension(const char *path, const char *ext);
+bool			is_valid_path(const char *path_copy);
+void			validate_setting(char *id, char *setting,
+					t_check_list *check_list);
+void			skip_space(char **tmp);
+void			skip_nonspace(char **tmp);
+bool			is_blank_line(char *line);
+char			*skip_blank_lines(int fd);
+bool			validate_map(t_map *map, const char *path);
 // dda
 void			init_ray_direction(t_ray *ray, t_mgr *mgr, int x);
 void			set_ray_steps_and_initial_side_distances(t_ray *ray,

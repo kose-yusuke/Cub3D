@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/10 02:25:28 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/11/15 01:40:44 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,18 @@
 // 	system("leaks -q cub3D");
 // }
 
-void	init_mgr(t_mgr *mgr, char *map_filepath)
-{
-	mgr->textures = malloc(sizeof(t_textures));
-	if (!mgr->textures)
-		exit(ft_error_message_handler("Failed to allocate memory for tex"));
-	mgr->map.row = count_rows(mgr, map_filepath);
-	mgr->map.grid = read_cub_file(mgr, map_filepath);
-	mgr->map.column = count_columns(mgr) - 1;
-	if (check_map_validity(mgr) == 1)
-		exit(1);
-}
+// init_mgr.cに移動
+// void	init_mgr(t_mgr *mgr, char *map_filepath)
+// {
+// 	mgr->textures = malloc(sizeof(t_textures));
+// 	if (!mgr->textures)
+// 		exit(ft_error_message_handler("Failed to allocate memory for tex"));
+// 	mgr->map.row = count_rows(mgr, map_filepath);
+// 	mgr->map.grid = read_cub_file(mgr, map_filepath);
+// 	mgr->map.column = count_columns(mgr) - 1;
+// 	if (check_map_validity(mgr) == 1)
+// 		exit(1);
+// }
 
 void	set_floor_color(t_mgr *mgr, int red, int green, int blue)
 {
@@ -67,8 +68,9 @@ int	main(int argc, char **argv)
 {
 	t_mgr	mgr;
 
-	if (argc != 2)
+	if (argc != 2 || !is_valid_extension(argv[1], ".cub"))
 		return (ft_error_message_handler("Usage: ./cub3D <map_name>.cub"));
+	validate_map(&(mgr.map), argv[1]);
 	init_mgr(&mgr, argv[1]);
 	ft_init_render(&mgr);
 	return (0);
