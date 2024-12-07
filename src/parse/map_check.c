@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 20:03:46 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/15 17:42:56 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/07 14:55:03 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	check_boundary_cell(char c)
 	return (true);
 }
 
-static bool	check_inner_cell(char **grid, int row, int col, char c)
+static bool	check_inner_cell(char **grid, int x, int y, char c)
 {
 	if (!is_map_char(c))
 	{
@@ -31,9 +31,9 @@ static bool	check_inner_cell(char **grid, int row, int col, char c)
 	}
 	if (c != ' ')
 		return (true);
-	if (!is_boundary_char(grid[row - 1][col]) || !is_boundary_char(grid[row
-			+ 1][col]) || !is_boundary_char(grid[row][col - 1])
-		|| !is_boundary_char(grid[row][col + 1]))
+	if (!is_boundary_char(grid[y - 1][x]) || !is_boundary_char(grid[y
+			+ 1][x]) || !is_boundary_char(grid[y][x - 1])
+		|| !is_boundary_char(grid[y][x + 1]))
 	{
 		print_error("Map not enclosed by walls");
 		return (false);
@@ -41,11 +41,11 @@ static bool	check_inner_cell(char **grid, int row, int col, char c)
 	return (true);
 }
 
-static bool	check_player_cell(t_mgr *mgr, int i, int j, int *spawn_count)
+static bool	check_player_cell(t_mgr *mgr, int x, int y, int *spawn_count)
 {
 	char	cell;
 
-	cell = mgr->map.grid[i][j];
+	cell = mgr->map.grid[y][x];
 	if (!is_player_char(cell))
 	{
 		return (true);
@@ -56,32 +56,32 @@ static bool	check_player_cell(t_mgr *mgr, int i, int j, int *spawn_count)
 		return (false);
 	}
 	*spawn_count = 1;
-	init_player(mgr, i, j, cell);
+	init_player(mgr, x, y, cell);
 	return (true);
 }
 
-static bool	check_map_row(t_mgr *mgr, int i, int *spawn_count)
+static bool	check_map_row(t_mgr *mgr, int y, int *spawn_count)
 {
-	int		j;
+	int		x;
 	char	cell;
 
-	j = 0;
-	while (j < mgr->map.column)
+	x = 0;
+	while (x < mgr->map.column)
 	{
-		cell = mgr->map.grid[i][j];
-		if (is_periphery_cell(i, j, mgr->map.row, mgr->map.column))
+		cell = mgr->map.grid[y][x];
+		if (is_periphery_cell(y, x, mgr->map.row, mgr->map.column))
 		{
 			if (!check_boundary_cell(cell))
 				return (false);
 		}
 		else
 		{
-			if (!check_inner_cell(mgr->map.grid, i, j, cell))
+			if (!check_inner_cell(mgr->map.grid, x, y, cell))
 				return (false);
-			if (!check_player_cell(mgr, i, j, spawn_count))
+			if (!check_player_cell(mgr,  x, y, spawn_count))
 				return (false);
 		}
-		j++;
+		x++;
 	}
 	return (true);
 }
@@ -89,15 +89,15 @@ static bool	check_map_row(t_mgr *mgr, int i, int *spawn_count)
 bool	check_map_validity(t_mgr *mgr)
 {
 	int	spawn_count;
-	int	i;
+	int	y;
 
 	spawn_count = 0;
-	i = 0;
-	while (i < mgr->map.row)
+	y = 0;
+	while (y < mgr->map.row)
 	{
-		if (!check_map_row(mgr, i, &spawn_count))
+		if (!check_map_row(mgr, y, &spawn_count))
 			return (false);
-		i++;
+		y++;
 	}
 	if (spawn_count == 0)
 	{
