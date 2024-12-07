@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 17:32:02 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/12/07 14:57:15 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/07 15:18:45 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	move_forward_backward(int keycode, t_mgr *mgr)
 		new_x = mgr->player.pos.x - mgr->player.dir.x * MOVESPEED;
 		new_y = mgr->player.pos.y - mgr->player.dir.y * MOVESPEED;
 	}
-	if(!is_valid_position((int)new_x,(int)(mgr->player.pos.y),&mgr->map) ||
-	!is_valid_position((int)(mgr->player.pos.x), (int)new_y, &mgr->map))
-		return;
+	if (!is_valid_position((int)new_x, (int)(mgr->player.pos.y), &mgr->map) ||
+		!is_valid_position((int)(mgr->player.pos.x), (int)new_y, &mgr->map))
+		return ;
 	if (mgr->map.grid[(int)(mgr->player.pos.y)][(int)new_x] != '1' &&
 		mgr->map.grid[(int)new_y][(int)(mgr->player.pos.x)] != '1')
 	{
@@ -51,16 +51,15 @@ void	move_left_right(int keycode, t_mgr *mgr)
 	{
 		new_x = mgr->player.pos.x - mgr->player.dir.y * MOVESPEED;
 		new_y = mgr->player.pos.y + mgr->player.dir.x * MOVESPEED;
-
 	}
 	else if (keycode == LEFT)
 	{
 		new_x = mgr->player.pos.x + mgr->player.dir.y * MOVESPEED;
 		new_y = mgr->player.pos.y - mgr->player.dir.x * MOVESPEED;
 	}
-	if(!is_valid_position((int)new_x,(int)(mgr->player.pos.y),&mgr->map) ||
+	if (!is_valid_position((int)new_x, (int)(mgr->player.pos.y), &mgr->map) ||
 	!is_valid_position((int)(mgr->player.pos.x), (int)new_y, &mgr->map))
-		return;
+		return ;
 	if (mgr->map.grid[(int)(mgr->player.pos.y)][(int)new_x] != '1' &&
 		mgr->map.grid[(int)new_y][(int)(mgr->player.pos.x)] != '1')
 	{
@@ -108,11 +107,5 @@ int	ft_event_handler(int keycode, t_mgr *mgr)
 		ft_close(mgr);
 	else
 		ft_move_player(keycode, mgr);
-	printf("%s%d%s%d\n", "position: x: ", (int)mgr->player.pos.x, " y : ",
-		(int)mgr->player.pos.y);
-	printf("%s%f%s%f\n", "position: x: ", mgr->player.pos.x, " y : ",
-		mgr->player.pos.y);
-	printf("%s%f%s%f\n", "direction: x: ", mgr->player.dir.x, " y : ",
-		mgr->player.dir.y);
 	return (0);
 }

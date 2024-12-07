@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 23:30:49 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/12/07 14:28:49 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/07 15:19:55 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ void	set_ray_steps_and_initial_side_distances(t_ray *ray, t_mgr *mgr)
 	}
 }
 
-bool is_valid_position(int x, int y, t_map *map) {
-    return (x >= 0 && x < map->column && y >= 0 && y < map->row);
+bool	is_valid_position(int x, int y, t_map *map)
+{
+	return (x >= 0 && x < map->column && y >= 0 && y < map->row);
 }
 
 void	perform_dda(t_ray *ray, t_mgr *mgr)
@@ -78,7 +79,7 @@ void	perform_dda(t_ray *ray, t_mgr *mgr)
 			ray->side = Y_AXIS;
 		}
 		if (!is_valid_position(ray->map_x, ray->map_y, &mgr->map)
-		|| mgr->map.grid[ray->map_y][ray->map_x] != '0')
+			|| mgr->map.grid[ray->map_y][ray->map_x] != '0')
 			ray->hit = 1;
 	}
 }

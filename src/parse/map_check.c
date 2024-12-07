@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 20:03:46 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/12/07 14:55:03 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/07 15:20:34 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static bool	check_map_row(t_mgr *mgr, int y, int *spawn_count)
 		{
 			if (!check_inner_cell(mgr->map.grid, x, y, cell))
 				return (false);
-			if (!check_player_cell(mgr,  x, y, spawn_count))
+			if (!check_player_cell(mgr, x, y, spawn_count))
 				return (false);
 		}
 		x++;

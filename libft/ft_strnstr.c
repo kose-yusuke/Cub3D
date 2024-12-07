@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykoseki <ykoseki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 03:50:05 by ykoseki           #+#    #+#             */
-/*   Updated: 2023/06/03 23:27:01 by ykoseki          ###   ########.fr       */
+/*   Updated: 2024/12/07 15:09:37 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 // #include <stdio.h>
-#include <strings.h>
+#include <string.h>
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

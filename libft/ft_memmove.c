@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykoseki <ykoseki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 02:05:46 by ykoseki           #+#    #+#             */
-/*   Updated: 2023/07/08 02:59:41 by ykoseki          ###   ########.fr       */
+/*   Updated: 2024/12/07 15:09:29 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
+#include <string.h>
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {

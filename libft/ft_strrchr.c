@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strrchr.c                                          :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykoseki <ykoseki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 03:06:59 by ykoseki           #+#    #+#             */
-/*   Updated: 2023/05/28 13:58:25 by ykoseki          ###   ########.fr       */
+/*   Updated: 2024/12/07 15:10:37 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <strings.h>
+#include <string.h>
 
 char	*ft_strrchr(const char *s, int c)
 {

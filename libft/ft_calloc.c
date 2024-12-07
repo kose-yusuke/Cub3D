@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykoseki <ykoseki@student.42.fr>            +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 04:19:25 by ykoseki           #+#    #+#             */
-/*   Updated: 2023/06/03 23:12:50 by ykoseki          ###   ########.fr       */
+/*   Updated: 2024/12/07 15:09:23 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
+#include <string.h>
+#include <stdint.h>
 
 void	*ft_calloc(size_t count, size_t size)
 {
