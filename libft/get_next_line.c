@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#define OPEN_MAX 10240
 
 char	*all_free(char *line, char *buf)
 {

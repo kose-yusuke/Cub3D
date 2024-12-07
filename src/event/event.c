@@ -109,11 +109,5 @@ int	ft_event_handler(int keycode, t_mgr *mgr)
 		ft_close(mgr);
 	else
 		ft_move_player(keycode, mgr);
-	printf("%s%d%s%d\n", "position: x: ", (int)mgr->player.pos.x, " y : ",
-		(int)mgr->player.pos.y);
-	printf("%s%f%s%f\n", "position: x: ", mgr->player.pos.x, " y : ",
-		mgr->player.pos.y);
-	printf("%s%f%s%f\n", "direction: x: ", mgr->player.dir.x, " y : ",
-		mgr->player.dir.y);
 	return (0);
 }
