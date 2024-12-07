@@ -3,18 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
+/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 20:03:46 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/12/07 15:20:34 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/12/07 18:34:10 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	check_boundary_cell(char c)
+static bool	check_boundary_cell(t_map *map, char **grid, int x, int y)
 {
-	if (!is_boundary_char(c))
+	char	c_adjacent;
+
+	if (grid[y][x] == '1')
+		return (true);
+	c_adjacent = '1';
+	if (y == 0)
+		c_adjacent = grid[y + 1][x];
+	else if (y == map->row - 1)
+		c_adjacent = grid[y - 1][x];
+	else if (x == 0)
+		c_adjacent = grid[y][x + 1];
+	else if (x == map->column - 1)
+		c_adjacent = grid[y][x - 1];
+	if (!is_boundary_char(grid[y][x]) || !is_boundary_char(c_adjacent))
 	{
 		print_error("Map not enclosed by walls");
 		return (false);
@@ -71,7 +84,7 @@ static bool	check_map_row(t_mgr *mgr, int y, int *spawn_count)
 		cell = mgr->map.grid[y][x];
 		if (is_periphery_cell(y, x, mgr->map.row, mgr->map.column))
 		{
-			if (!check_boundary_cell(cell))
+			if (!check_boundary_cell(&mgr->map, mgr->map.grid, x, y))
 				return (false);
 		}
 		else
