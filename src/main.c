@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:04:00 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/15 01:40:44 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/07 15:11:06 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <libc.h>
-
-// __attribute__((destructor))
-// static void destructor() {
-// 	system("leaks -q cub3D");
-// }
-
-// init_mgr.cに移動
-// void	init_mgr(t_mgr *mgr, char *map_filepath)
-// {
-// 	mgr->textures = malloc(sizeof(t_textures));
-// 	if (!mgr->textures)
-// 		exit(ft_error_message_handler("Failed to allocate memory for tex"));
-// 	mgr->map.row = count_rows(mgr, map_filepath);
-// 	mgr->map.grid = read_cub_file(mgr, map_filepath);
-// 	mgr->map.column = count_columns(mgr) - 1;
-// 	if (check_map_validity(mgr) == 1)
-// 		exit(1);
-// }
 
 void	set_floor_color(t_mgr *mgr, int red, int green, int blue)
 {

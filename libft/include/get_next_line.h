@@ -6,12 +6,13 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 23:42:17 by ykoseki           #+#    #+#             */
-/*   Updated: 2024/10/28 13:12:59 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/12/07 15:10:26 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+# define OPEN_MAX 10240
 
 # include <errno.h>
 # include <fcntl.h>

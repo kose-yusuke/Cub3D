@@ -5,7 +5,7 @@ CC       = cc
 CFLAGS   = -Wall -Wextra -Werror $(INCLUDES)
 INCLUDES = -I $(LIBFT_DIR)/include -I $(MLX_DIR) -I include
 LIB = -L $(MLX_DIR) -l $(MLX) -L $(LIBFT_DIR) -l $(LIBFT) \
-	-L/usr/X11R6/lib -lX11 -lXext
+	-L/usr/X11R6/lib -lX11 -lXext -lm
 SRC_DIR = ./src
 
 LIBFT = ft
@@ -36,8 +36,8 @@ $(NAME): $(OBJS)
 	make -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
 
-.c.o: $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+.c.o:
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	make -C $(LIBFT_DIR) clean

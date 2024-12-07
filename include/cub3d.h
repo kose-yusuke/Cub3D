@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/12/07 14:28:58 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/07 15:21:07 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@
 # define SQUARE_SIZE 32
 # define WINDOW_NAME "cub3D"
 # define REQUIRED_SETTINGS 6
-# define MAX_ROWS 10000 // TODO: 仮
-# define MAX_COLS 10000 // TODO: 仮
+# define MAX_ROWS 10000
+# define MAX_COLS 10000
 
-// # define SCREEN_WIDTH 1280
-// # define SCREEN_HEIGHT 720
 # define SCREEN_WIDTH 1200
 # define SCREEN_HEIGHT 600
 # define MOVESPEED 0.125
@@ -213,7 +211,7 @@ char			*ft_strndup(char *src, long len);
 size_t			ft_strlen_until_newline(const char *str);
 double			absolute_value(double value);
 // render
-bool			is_valid_position(int x, int y, t_map *map) ;
+bool			is_valid_position(int x, int y, t_map *map);
 int				render_loop(t_mgr *mgr);
 void			init_image(t_mgr *mgr);
 void			put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
