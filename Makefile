@@ -19,7 +19,7 @@ ifeq ($(UNAME_S), Linux)
     MLX = mlx
 endif
 
-SRCS     = $(SRC_DIR)/main.c $(SRC_DIR)/event/event.c $(SRC_DIR)/error/error.c $(SRC_DIR)/parse/readfile.c $(SRC_DIR)/utils/utils.c \
+SRCS     = $(SRC_DIR)/main.c $(SRC_DIR)/event/event.c $(SRC_DIR)/error/error.c $(SRC_DIR)/utils/utils.c \
 		$(SRC_DIR)/dda/dda.c $(SRC_DIR)/render/rendering.c $(SRC_DIR)/render/floor.c $(SRC_DIR)/parse/init_texture.c \
 		$(SRC_DIR)/event/event2.c $(SRC_DIR)/parse/init_player.c $(SRC_DIR)/parse/map_check.c $(SRC_DIR)/render/render_utils.c \
 		$(SRC_DIR)/validate/ft_strtol.c $(SRC_DIR)/validate/ft_strtol_utils.c $(SRC_DIR)/validate/validate.c \
@@ -52,7 +52,7 @@ fclean: clean
 re: fclean all
 
 test:
-	./cub3D map/valid/map.cub
+	./cub3D map/valid/map02.cub
 
 error:
 	cat map/invalid/invalid_map_00.cub

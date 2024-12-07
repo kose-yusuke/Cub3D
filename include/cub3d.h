@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 16:42:28 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/16 04:05:09 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/07 14:28:58 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ char			*ft_strndup(char *src, long len);
 size_t			ft_strlen_until_newline(const char *str);
 double			absolute_value(double value);
 // render
+bool			is_valid_position(int x, int y, t_map *map) ;
 int				render_loop(t_mgr *mgr);
 void			init_image(t_mgr *mgr);
 void			put_pixel_to_image(t_mgr *mgr, int x, int y, int color);
