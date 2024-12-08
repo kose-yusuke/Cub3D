@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 10:46:52 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/10 02:24:28 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/12/08 15:42:13 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_wall(t_mgr *mgr, int x, int line_height, t_ray *ray)
 		tex_x = TEXWIDTH - tex_x - 1;
 	step = 1.0 * TEXHEIGHT / line_height;
 	tex_pos = (draw_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
-	while (draw_start < draw_end)
+	while (draw_start <= draw_end)
 	{
 		tex_pos += step;
 		put_pixel_to_image(mgr, x, draw_start, get_tex_pixel_color(mgr, ray,
