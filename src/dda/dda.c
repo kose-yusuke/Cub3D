@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 23:30:49 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/12/07 15:19:55 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/12/08 15:42:00 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	init_ray_direction(t_ray *ray, t_mgr *mgr, int x)
 	ray->dir_y = mgr->player.dir.y + mgr->player.camera_plane.y * ray->camera_x;
 	ray->map_x = (int)mgr->player.pos.x;
 	ray->map_y = (int)mgr->player.pos.y;
-	if (ray->dir_y == 0)
-		ray->delta_dist_x = INT_MAX;
+	if (ray->dir_x == 0)
+		ray->delta_dist_x = 1e30;
 	else
 		ray->delta_dist_x = absolute_value(1 / ray->dir_x);
 	if (ray->dir_y == 0)
-		ray->delta_dist_y = INT_MAX;
+		ray->delta_dist_y = 1e30;
 	else
 		ray->delta_dist_y = absolute_value(1 / ray->dir_y);
 }

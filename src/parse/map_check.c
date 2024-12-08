@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 20:03:46 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/12/07 18:34:10 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/08 16:53:53 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static bool	check_player_cell(t_mgr *mgr, int x, int y, int *spawn_count)
 	}
 	*spawn_count = 1;
 	init_player(mgr, x, y, cell);
+	mgr->map.grid[y][x] = '0';
 	return (true);
 }
 
