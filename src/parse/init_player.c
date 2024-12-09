@@ -6,7 +6,7 @@
 /*   By: koseki.yusuke <koseki.yusuke@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:52:10 by koseki.yusu       #+#    #+#             */
-/*   Updated: 2024/11/08 13:53:39 by koseki.yusu      ###   ########.fr       */
+/*   Updated: 2024/12/08 17:12:41 by koseki.yusu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	set_player_position(t_mgr *mgr, int x, int y)
 {
-	mgr->player.pos.x = (double)x;
-	mgr->player.pos.y = (double)y;
+	mgr->player.pos.x = (double)x + 0.5;
+	mgr->player.pos.y = (double)y + 0.5;
 }
 
 void	set_north_south_direction(t_mgr *mgr, char compass)
