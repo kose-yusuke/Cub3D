@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:36:11 by sakitaha          #+#    #+#             */
-/*   Updated: 2024/11/15 17:36:36 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:57:36 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ bool	validate_map(t_map *map, const char *path)
 	if (!validate_map_data(fd) || !validate_map_figure(map, fd))
 	{
 		close(fd);
+		if (errno != 0)
+			error_exit(strerror(errno));
 		error_exit("Invalid map");
 	}
 	close(fd);
