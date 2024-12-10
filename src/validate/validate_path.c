@@ -6,7 +6,7 @@
 /*   By: sakitaha <sakitaha@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:35:48 by sakitaha          #+#    #+#             */
-/*   Updated: 2024/11/15 17:35:59 by sakitaha         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:42:01 by sakitaha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ bool	is_valid_path(const char *path_copy)
 	fd = open(path_copy, O_RDONLY);
 	if (fd == -1)
 	{
-		print_error(strerror(errno));
 		return (false);
 	}
 	close(fd);
